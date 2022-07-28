@@ -1,0 +1,44 @@
+package com.kev.cocktailsdb.api
+
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
+object ApiObject {
+
+    fun getClient(): ApiService {
+
+        val requestInterceptor = Interceptor { chain ->
+            val url = chain.request()
+                .url
+                .newBuilder()
+                .build()
+
+
+            val request = chain.request()
+                .newBuilder()
+                .url(url)
+                .build()
+
+            return@Interceptor chain.proceed(request)
+
+        }
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(requestInterceptor)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .build()
+
+        return  Retrofit.Builder()
+            .baseUrl("https://www.thecocktaildb.com/api/json/v1/")
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+            .create(ApiService::class.java)
+
+    }
+}
