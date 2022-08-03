@@ -13,8 +13,6 @@ data class CocktailsResponse(
 
 class TypeConverterList {
 
-
-
     @TypeConverter
     fun listToJson(value: List<CocktailsResponse>?) = Gson().toJson(value)
 

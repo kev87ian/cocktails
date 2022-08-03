@@ -1,13 +1,17 @@
 package com.kev.cocktailsdb.ui
 
 import android.content.Intent
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.R
 import com.kev.cocktailsdb.adapter.AlcoholicCocktailsAdapter
 import com.kev.cocktailsdb.repository.MainRepository
@@ -40,40 +44,35 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
         val repository = MainRepository()
-        val viewModelProviderFactory = MainViewModelProviderFactory(repository)
+        val viewModelProviderFactory = MainViewModelProviderFactory(application as HiltApplication, repository)
         mViewModel = ViewModelProvider(this, viewModelProviderFactory)[MainViewModel::class.java]
 
-        mViewModel.downloadedAlcoholResponse.observe(this) { response ->
 
-            when (response) {
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    errorTV.visibility = View.VISIBLE
+        mViewModel.downloadedAlcoholResponse.observe(this, Observer{response->
+            when(response){
+                is Resource.Success ->{
+                    paginationProgressBar.visibility = View.GONE
+                    mAdapter.differ.submitList(response.data?.drinks)
+                    Toast.makeText(this@MainActivity, "Ime load", Toast.LENGTH_SHORT).show()
                 }
 
-                is Resource.Success -> {
-                    response.data?.let {
-                        mAdapter.differ.submitList(it.drinks)
-                        hideProgressBar()
-                    }
+                is Resource.Error ->{
+                    paginationProgressBar.visibility = View.GONE
+                    Toast.makeText(this@MainActivity, "${response.message}", Toast.LENGTH_SHORT).show()
+                    errorTVMain.visibility = View.VISIBLE
+                    errorTVMain.text = response.message
+
+                }
+
+                is Resource.Loading ->{
+                    paginationProgressBar.visibility = View.VISIBLE
+                    Toast.makeText(this@MainActivity, "Ina load", Toast.LENGTH_SHORT).show()
                 }
             }
+        })
 
 
-        }
-    }
-
-    private fun hideProgressBar() {
-        paginationProgressBar.visibility = View.GONE
-    }
-
-    private fun showProgressBar() {
-        paginationProgressBar.visibility = View.VISIBLE
     }
 
 
@@ -93,11 +92,6 @@ class MainActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
-
-//                android.R.id.maleActivity -> {
-//                    startActivity(Intent(applicationContext, Male::class.java))
-//                    overridePendingTransition(0, 0)
-//                    return@OnNavigationItemSelectedListener true
 //                }
             }
             false
