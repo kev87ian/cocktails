@@ -9,11 +9,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.Glide.init
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.model.CocktailsResponse
 import com.kev.cocktailsdb.repository.MainRepository
 import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import java.io.IOException
 
 
@@ -25,6 +27,11 @@ class MainViewModel constructor(app: HiltApplication, private val repository: Ma
     val downloadedAlcoholResponse: LiveData<Resource<CocktailsResponse>>
         get() = _downloadedAlcoholResponse
 
+
+    private val _NDownloadedAlcoholResponse = MutableLiveData<Resource<CocktailsResponse>>()
+    val nDownloadedAlcoholResponse: LiveData<Resource<CocktailsResponse>>
+
+    get() = _NDownloadedAlcoholResponse
 
     private suspend fun safeAlcoholCall() = viewModelScope.launch {
         _downloadedAlcoholResponse.postValue(Resource.Loading())
@@ -47,30 +54,41 @@ class MainViewModel constructor(app: HiltApplication, private val repository: Ma
         }
     }
 
+    private suspend fun  safeNonAlcoholicCall() = viewModelScope.launch {
+        _NDownloadedAlcoholResponse.postValue(Resource.Loading())
+
+        try {
+            if (hasInternet()){
+                val response = repository.getNAlcoholCocktails()
+                response.body()?.let {
+                    _NDownloadedAlcoholResponse.postValue(Resource.Success(it))
+                }
+
+            } else{
+                _NDownloadedAlcoholResponse.postValue(Resource.Error("No internet connection."))
+            }
+
+        } catch (t: Throwable) {
+            when (t) {
+                is IOException -> _NDownloadedAlcoholResponse.postValue(Resource.Error("Network Failure"))
+                else ->_NDownloadedAlcoholResponse.postValue(Resource.Error("Json Conversion Error"))
+            }
+        }
+    }
 
     private fun getAlcoholicCocktails() = viewModelScope.launch {
         safeAlcoholCall()
     }
 
-    init {
-        getAlcoholicCocktails()
+    private fun getNAlcoholicCocktails() = viewModelScope.launch {
+        safeNonAlcoholicCall()
     }
 
-/*
-    private fun getNalcoholicCocktails() = viewModelScope.launch {
+    init {
+        getAlcoholicCocktails()
+        getNAlcoholicCocktails()
+    }
 
-        val response = repository.getNAlcoholCocktails()
-        if (response.isSuccessful) {
-            response.body().let {
-                _downloadedAlcoholResponse.postValue(it)
-
-            }
-        } else {
-            Log.e("Makosa", response.message().toString())
-
-
-        }
-    }*/
 
     private fun hasInternet(): Boolean {
         val connectivityManager = getApplication<HiltApplication>().getSystemService(
