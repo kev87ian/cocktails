@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        mAdapter = AlcoholicCocktailsAdapter()
+        mAdapter = AlcoholicCocktailsAdapter(applicationContext)
         alcoholicCocktailsRv.apply {
             adapter = mAdapter
             layoutManager = GridLayoutManager(this@MainActivity, 2)
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 is Resource.Success ->{
                     paginationProgressBar.visibility = View.GONE
                     mAdapter.differ.submitList(response.data?.drinks)
-                    Toast.makeText(this@MainActivity, "Ime load", Toast.LENGTH_SHORT).show()
+                 //   Toast.makeText(this@MainActivity, "Loaded", Toast.LENGTH_SHORT).show()
                 }
 
                 is Resource.Error ->{
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
                 is Resource.Loading ->{
                     paginationProgressBar.visibility = View.VISIBLE
-                    Toast.makeText(this@MainActivity, "Ina load", Toast.LENGTH_SHORT).show()
+          //          Toast.makeText(this@MainActivity, "Loading", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
-//                }
             }
             false
         })

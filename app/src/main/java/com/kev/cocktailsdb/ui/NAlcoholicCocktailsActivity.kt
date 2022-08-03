@@ -34,7 +34,7 @@ class NAlcoholicCocktailsActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        mAdapter = AlcoholicCocktailsAdapter()
+        mAdapter = AlcoholicCocktailsAdapter(applicationContext)
         nAlcoholicCocktailsRv.apply {
             adapter = mAdapter
             layoutManager = GridLayoutManager(this@NAlcoholicCocktailsActivity, 2)

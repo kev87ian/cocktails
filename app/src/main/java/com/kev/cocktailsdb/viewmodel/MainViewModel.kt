@@ -71,7 +71,7 @@ class MainViewModel constructor(app: HiltApplication, private val repository: Ma
         } catch (t: Throwable) {
             when (t) {
                 is IOException -> _NDownloadedAlcoholResponse.postValue(Resource.Error("Network Failure"))
-                else ->_NDownloadedAlcoholResponse.postValue(Resource.Error("Json Conversion Error"))
+                else ->_NDownloadedAlcoholResponse.postValue(Resource.Error("Conversion Error."))
             }
         }
     }
