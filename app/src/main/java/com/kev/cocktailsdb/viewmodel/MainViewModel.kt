@@ -30,7 +30,6 @@ class MainViewModel constructor(app: HiltApplication, private val repository: Ma
 
     private val _NDownloadedAlcoholResponse = MutableLiveData<Resource<CocktailsResponse>>()
     val nDownloadedAlcoholResponse: LiveData<Resource<CocktailsResponse>>
-
     get() = _NDownloadedAlcoholResponse
 
     private suspend fun safeAlcoholCall() = viewModelScope.launch {

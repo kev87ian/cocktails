@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_cocktail_details.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/activity_nalcoholic_cocktails.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/cocktail_layout_file.xml" value="0.32155797101449274" />

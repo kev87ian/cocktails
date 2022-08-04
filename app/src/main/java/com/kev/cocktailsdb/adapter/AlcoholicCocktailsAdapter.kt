@@ -39,10 +39,11 @@ class AlcoholicCocktailsAdapter(private val context: Context) :
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, CocktailDetailsActivity::class.java)
-            intent.putExtra("id", currentCocktail.id)
+            intent.putExtra("id", currentCocktail.idDrink)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
             currentCocktail?.strDrink?.let { it -> Log.d("OnClick", it) }
+           Log.d("onclick", currentCocktail.idDrink.toString())
         }
     }
 
