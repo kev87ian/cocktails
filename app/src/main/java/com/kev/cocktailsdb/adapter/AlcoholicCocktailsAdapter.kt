@@ -36,15 +36,17 @@ class AlcoholicCocktailsAdapter(private val context: Context) :
             Glide.with(holder.itemView.context).load(currentCocktail.strDrinkThumb)
                 .placeholder(R.drawable.loading).fitCenter().into(ivCocktailImage)
         }
-
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, CocktailDetailsActivity::class.java)
-            intent.putExtra("id", currentCocktail.idDrink)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
-            currentCocktail?.strDrink?.let { it -> Log.d("OnClick", it) }
-           Log.d("onclick", currentCocktail.idDrink.toString())
-        }
+//
+//        holder.itemView.setOnClickListener {
+//            val intent = Intent(context, CocktailDetailsActivity::class.java)
+//            intent.putExtra("idDrink", currentCocktail.idDrink)
+//            intent.putExtra("drinkName", currentCocktail.strDrink)
+//            intent.putExtra("drinkImage", currentCocktail.strDrinkThumb)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            context.startActivity(intent)
+//            currentCocktail?.strDrink?.let { it -> Log.d("OnClick", it) }
+//           Log.d("onclick", currentCocktail.idDrink.toString())
+//        }
     }
 
     override fun getItemCount(): Int {
