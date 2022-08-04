@@ -7,7 +7,7 @@ import com.kev.cocktailsdb.repository.CocktailDetailsRepository
 
 @Suppress("UNCHECKED_CAST")
 class CocktailDetailsViewModelProviderFactory
-    (private val app:HiltApplication,private val repository: CocktailDetailsRepository, private val cocktailId : Int) :
+    (private val app:HiltApplication,private val repository: CocktailDetailsRepository, private val cocktailId : String) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

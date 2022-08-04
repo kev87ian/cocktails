@@ -7,5 +7,5 @@ import com.kev.cocktailsdb.model.Drink
 import io.reactivex.disposables.CompositeDisposable
 
 class CocktailDetailsRepository {
-    suspend fun getCocktailDetails(cocktailId:Int) = ApiObject.getClient().getCocktailDetails(cocktailId)
+    suspend fun getCocktailDetails(cocktailId:String) = ApiObject.getClient().getCocktailDetails(cocktailId)
 }

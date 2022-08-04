@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 class CocktailDetailsViewModel(app: HiltApplication,
-    cocktailId: Int, private val repository: CocktailDetailsRepository
+    cocktailId: String, private val repository: CocktailDetailsRepository
 ) :
     AndroidViewModel(app) {
 
@@ -25,7 +25,7 @@ class CocktailDetailsViewModel(app: HiltApplication,
 
 
 
-    private suspend fun safeDetailsCall(cocktailId: Int) = viewModelScope.launch {
+    private suspend fun safeDetailsCall(cocktailId: String) = viewModelScope.launch {
         _downloadedCocktailDetails.postValue(Resource.Loading())
         try {
             if (hasInternet()){
@@ -49,7 +49,7 @@ class CocktailDetailsViewModel(app: HiltApplication,
     }
 
 
-    private fun getCocktailDetails(cocktailId: Int) = viewModelScope.launch {
+    private fun getCocktailDetails(cocktailId: String) = viewModelScope.launch {
         safeDetailsCall(cocktailId)
 
     }

@@ -26,17 +26,14 @@ class CocktailDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_details)
 
-        val cocktailId: Int = intent.getIntExtra("idDrink", 1)
-        Toast.makeText(
-            this@CocktailDetailsActivity,
-            "${intent.getStringExtra("drinkImage")}",
-            Toast.LENGTH_LONG
-        ).show()
+        val cocktailId = intent.getStringExtra("idDrink")
+        Log.d("DEBUG", cocktailId.toString())
+        Toast.makeText(this@CocktailDetailsActivity, "${intent.getStringExtra("idDrink")}", Toast.LENGTH_LONG).show()
 
 
         repository = CocktailDetailsRepository()
 
-        val viewModelProviderFactory = CocktailDetailsViewModelProviderFactory(application as HiltApplication,repository, cocktailId)
+        val viewModelProviderFactory = CocktailDetailsViewModelProviderFactory(application as HiltApplication,repository, cocktailId.toString())
        viewModel = ViewModelProvider(this, viewModelProviderFactory)[CocktailDetailsViewModel::class.java]
 
 
@@ -44,7 +41,7 @@ class CocktailDetailsActivity : AppCompatActivity() {
             when (response) {
                 is Resource.Success -> {
                     tvDetails_cocktail_name.text = response.data?.strDrink
-                    Log.v("Jina", response.data?.strDrink.toString())
+                    Toast.makeText(this@CocktailDetailsActivity, "${response.data?.strDrink} is the drink name", Toast.LENGTH_LONG).show()
                     Glide.with(this).load(response.data?.strDrinkThumb).fitCenter()
                         .into(ivDetails_cocktail_image)
                     pb.visibility = View.GONE
@@ -63,20 +60,6 @@ class CocktailDetailsActivity : AppCompatActivity() {
             }
         })
 
-//    }
-//
-//    @Suppress("UNCHECKED_CAST")
-//    private fun getViewModel(cocktailId: Int): CocktailDetailsViewModel {
-//        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
-//            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                return CocktailDetailsViewModel(
-//                    application as HiltApplication,
-//                    cocktailId,
-//                    repository
-//                ) as T
-//            }
-//        })[CocktailDetailsViewModel::class.java]
-//    }
 
 }
 }
