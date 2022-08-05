@@ -15,8 +15,8 @@ import com.kev.cocktailsdb.R
 import com.kev.cocktailsdb.repository.CocktailDetailsRepository
 import com.kev.cocktailsdb.util.Resource
 import com.kev.cocktailsdb.viewmodel.CocktailDetailsViewModel
-import com.kev.cocktailsdb.viewmodel.CocktailDetailsViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_cocktail_details.*
+import org.json.JSONObject
 
 class CocktailDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: CocktailDetailsViewModel
@@ -26,42 +26,56 @@ class CocktailDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cocktail_details)
 
-        val cocktailId = intent.getStringExtra("idDrink")
+        val cocktailId = intent.getIntExtra("idDrink", 1)
         Log.d("DEBUG", cocktailId.toString())
-        Toast.makeText(this@CocktailDetailsActivity, "${intent.getStringExtra("idDrink")}", Toast.LENGTH_LONG).show()
-
+        Toast.makeText(this@CocktailDetailsActivity, "${intent.getIntExtra("idDrink", 1)}  is the id", Toast.LENGTH_LONG).show()
 
         repository = CocktailDetailsRepository()
 
-        val viewModelProviderFactory = CocktailDetailsViewModelProviderFactory(application as HiltApplication,repository, cocktailId.toString())
-       viewModel = ViewModelProvider(this, viewModelProviderFactory)[CocktailDetailsViewModel::class.java]
+//        val viewModelProviderFactory = CocktailDetailsViewModelProviderFactory(application as HiltApplication, repository, cocktailId)
+//        viewModel = ViewModelProvider(this, viewModelProviderFactory)[CocktailDetailsViewModel::class.java]
 
 
-        viewModel.downloadedCocktailDetails.observe(this, Observer { response ->
-            when (response) {
-                is Resource.Success -> {
-                    tvDetails_cocktail_name.text = response.data?.strDrink
-                    Toast.makeText(this@CocktailDetailsActivity, "${response.data?.strDrink} is the drink name", Toast.LENGTH_LONG).show()
-                    Glide.with(this).load(response.data?.strDrinkThumb).fitCenter()
-                        .into(ivDetails_cocktail_image)
-                    pb.visibility = View.GONE
-                }
+        viewModel = getViewModel(cocktailId)
 
-                is Resource.Loading -> {
+        viewModel.downloadedCocktailDetails.observe(this, Observer{response->
+
+            when(response){
+                is Resource.Loading ->{
                     pb.visibility = View.VISIBLE
                 }
-
-                is Resource.Error -> {
+                is Resource.Error ->{
+                    errorTVDETAILS.visibility = View.VISIBLE
+                    errorTVDETAILS.text = response.message
                     pb.visibility = View.GONE
-                    Toast.makeText(this, "${response.message}", Toast.LENGTH_LONG).show()
                 }
 
-
+                is Resource.Success ->{
+                    val data  = response.data.toString()
+                    tvDetails_cocktail_name.text = data.toString()
+//                    Glide.with(this).load(response.data?.strDrinkThumb).placeholder(R.drawable.loading).fitCenter().into(ivDetails_cocktail_image)
+//                    pb.visibility =View.GONE
+//                    Log.i("IDD", response.data?.strDrink.toString())
+                }
             }
         })
 
 
-}
-}
+
+
+    }
+
+    private fun getViewModel(cocktailId: Int): CocktailDetailsViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST")
+                return CocktailDetailsViewModel(application as HiltApplication, cocktailId, repository) as T
+            }
+
+        })[CocktailDetailsViewModel::class.java]
+
+    }
+    }
+
 
 

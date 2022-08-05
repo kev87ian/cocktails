@@ -2,10 +2,8 @@ package com.kev.cocktailsdb.api
 
 import com.kev.cocktailsdb.model.CocktailsResponse
 import com.kev.cocktailsdb.model.Drink
-import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -19,5 +17,5 @@ interface ApiService {
 
     //https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
     @GET("1/lookup.php?")
-   suspend fun getCocktailDetails(@Query("i")id : String) : Response<Drink>
+   suspend fun getCocktailDetails(@Query("i")id : Int) : Response<CocktailsResponse>
 }

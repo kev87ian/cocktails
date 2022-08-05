@@ -17,16 +17,8 @@ import kotlinx.android.synthetic.main.cocktail_layout_file.view.*
 @Suppress("NAME_SHADOWING")
 class AlcoholicCocktailsAdapter(private val context: Context) :
     RecyclerView.Adapter<AlcoholicCocktailsAdapter.CocktailsViewHolder>() {
-    private lateinit var mListener: onItemClickListener
 
-    interface onItemClickListener {
-        fun onItemClick(position: Int)
-    }
 
-    fun setOnItemClickListener(listener: onItemClickListener) {
-        mListener = listener
-
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailsViewHolder {
 
@@ -69,7 +61,7 @@ class AlcoholicCocktailsAdapter(private val context: Context) :
 
     private val diffCallBack = object : DiffUtil.ItemCallback<Drink>() {
         override fun areItemsTheSame(oldItem: Drink, newItem: Drink): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.idDrink == newItem.idDrink
         }
 
         override fun areContentsTheSame(oldItem: Drink, newItem: Drink): Boolean {
