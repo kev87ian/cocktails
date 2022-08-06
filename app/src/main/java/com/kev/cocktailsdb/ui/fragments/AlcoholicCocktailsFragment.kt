@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -19,24 +20,16 @@ class AlcoholicCocktailsFragment : Fragment(R.layout.fragment_alcoholic_cocktail
     private lateinit var viewModel: CocktailsViewModel
     private lateinit var cocktailsAdapter: AlcoholicCocktailsAdapter
 
-    val TAG = "AlcoholicCocktailsFragment"
+    private val TAG = "AlcoholicCocktailsFragment"
 
     @SuppressLint("LongLogTag")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
 
-
-            cocktailsAdapter.setOnItemClickListener {
-                val bundle = Bundle().apply {
-                    putSerializable("drink", it.idDrink)
-                }
-                findNavController().navigate(
-                    R.id.action_alcoholicCocktailsFragment_to_cocktailDetailsFragment, bundle
-                )
-            }
-
+        adapterClickListener()
 
         viewModel.downloadedAlcoholResponse.observe(viewLifecycleOwner, Observer { response ->
 
@@ -59,7 +52,15 @@ class AlcoholicCocktailsFragment : Fragment(R.layout.fragment_alcoholic_cocktail
             }
 
         })
+    }
 
+    private fun adapterClickListener() {
+        cocktailsAdapter.setOnClickListener {drink->
+            val bundle = Bundle().apply { putSerializable("drink", drink.idDrink) }
+            findNavController().navigate(R.id.action_alcoholicCocktailsFragment_to_cocktailDetailsFragment, bundle)
+            Toast.makeText(activity, "${drink.strDrink} clicked", Toast.LENGTH_LONG).show()
+            Log.d(TAG, drink.strDrink)
+        }
     }
 
 

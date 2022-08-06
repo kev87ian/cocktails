@@ -30,7 +30,7 @@ class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cockta
         setupRecyclerView()
 
 
-            cocktailsAdapter.setOnItemClickListener {
+            cocktailsAdapter.setOnClickListener {
                 val bundle = Bundle().apply {
                     putSerializable("drink", it.idDrink)
                 }

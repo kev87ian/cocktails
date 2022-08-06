@@ -17,7 +17,6 @@ class AlcoholicCocktailsAdapter() :
     RecyclerView.Adapter<AlcoholicCocktailsAdapter.CocktailsViewHolder>() {
 
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailsViewHolder {
 
         val view: View = LayoutInflater.from(parent.context)
@@ -26,18 +25,40 @@ class AlcoholicCocktailsAdapter() :
 
     }
 
+//    override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
+//
+//        val currentCocktail = differ.currentList[position]
+//        holder.bind(currentCocktail, holder.itemView.context)
+//
+//
+//        setOnClickListener {
+//            onItemClickListener?.let { it(currentCocktail) }
+//        }
+//    }
 
     override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
-
         val currentCocktail = differ.currentList[position]
-        holder.bind(currentCocktail, holder.itemView.context)
+        holder.itemView.apply {
+            Glide.with(this).load(currentCocktail.strDrinkThumb).placeholder(R.drawable.loading).into(iv_cocktail_image)
+            tv_cocktail_name.text = currentCocktail.strDrink
+
+            setOnClickListener {
+                onItemClickListener?.let { it(currentCocktail) }
+        }
+
+        }
+    }
+
+     fun setOnClickListener(listener: (Drink) -> Unit) {
+            onItemClickListener = listener
 
     }
+    private var onItemClickListener: ((Drink) -> Unit)? = null
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
-    private var onItemClickListener: ((Drink) -> Unit)? = null
+
 
     class CocktailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -65,8 +86,5 @@ class AlcoholicCocktailsAdapter() :
     val differ = AsyncListDiffer(this, diffCallBack)
 
 
-    fun setOnItemClickListener(listener: (Drink) -> Unit) {
-        onItemClickListener = listener
-    }
 }
 

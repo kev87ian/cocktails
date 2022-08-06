@@ -16,6 +16,7 @@ class CocktailDetailsFragment : Fragment(R.layout.fragment_cocktail_details){
 private lateinit var detailsViewModel: CocktailDetailsViewModel
 
     private val args: CocktailDetailsFragmentArgs by navArgs()
+    val drink = args.drink
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         detailsViewModel = (activity as MainActivity).detailsViewModel
@@ -36,11 +37,11 @@ private lateinit var detailsViewModel: CocktailDetailsViewModel
                 is Resource.Success ->{
                     tvDetails_cocktail_name.text = drink.strDrink
                     Glide.with(activity as MainActivity).load(drink.strDrinkThumb).placeholder(R.drawable.loading).into(ivDetails_cocktail_image)
-//                    Glide.with(this).load(response.data?.strDrinkThumb).placeholder(R.drawable.loading).fitCenter().into(ivDetails_cocktail_image)
-//                    pb.visibility =View.GONE
-//                    Log.i("IDD", response.data?.strDrink.toString())
+
                 }
             }
         })
     }
+
+
 }
