@@ -26,5 +26,9 @@
         android:id="@+id/cocktailDetailsFragment"
         android:name="com.kev.cocktailsdb.ui.fragments.CocktailDetailsFragment"
         android:label="fragment_cocktail_details"
-        tools:layout="@layout/fragment_cocktail_details" />
+        tools:layout="@layout/fragment_cocktail_details" >
+        <argument
+            android:name="drink"
+            app:argType="com.kev.cocktailsdb.model.Drink" />
+    </fragment>
 </navigation>

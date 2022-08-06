@@ -2,6 +2,7 @@ package com.kev.cocktailsdb.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Drink(
 
@@ -93,4 +94,4 @@ data class Drink(
     val strTags: String,
     @SerializedName("strVideo")
     val strVideo: String
-)
+) : Serializable

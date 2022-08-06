@@ -1,7 +1,6 @@
 package com.kev.cocktailsdb.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +37,7 @@ class AlcoholicCocktailsAdapter() :
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+    private var onItemClickListener: ((Drink) -> Unit)? = null
 
     class CocktailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -47,13 +47,6 @@ class AlcoholicCocktailsAdapter() :
             Glide.with(context).load(drink.strDrinkThumb).fitCenter()
                 .placeholder(R.drawable.loading).into(itemView.iv_cocktail_image)
 
-//            itemView.setOnClickListener {
-//                val intent = Intent(context, CocktailDetailsActivity::class.java)
-//                intent.putExtra("idDrink", drink.idDrink)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                context.startActivity(intent)
-//
-//            }
 
         }
     }
@@ -70,11 +63,10 @@ class AlcoholicCocktailsAdapter() :
     }
 
     val differ = AsyncListDiffer(this, diffCallBack)
-//    var cocktails:List<Drink>
-//    get() = differ.currentList
-//    set(value) {
-//        differ.submitList(value)
-//    }
 
+
+    fun setOnItemClickListener(listener: (Drink) -> Unit) {
+        onItemClickListener = listener
+    }
 }
 
