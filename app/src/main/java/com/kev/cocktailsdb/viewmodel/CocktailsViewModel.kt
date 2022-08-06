@@ -9,17 +9,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.Glide.init
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.model.CocktailsResponse
-import com.kev.cocktailsdb.repository.MainRepository
+import com.kev.cocktailsdb.repository.CocktailsRepository
 import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import java.io.IOException
 
 
-class MainViewModel constructor(app: HiltApplication, private val repository: MainRepository) :
+class CocktailsViewModel constructor(app: HiltApplication, private val repository: CocktailsRepository) :
     AndroidViewModel(app) {
 
 
@@ -37,7 +35,7 @@ class MainViewModel constructor(app: HiltApplication, private val repository: Ma
         try {
             if (hasInternet()) {
                 val response = repository.getCocktails()
-
+                _downloadedAlcoholResponse.postValue(Resource.Loading())
                 response.body()?.let {
                     _downloadedAlcoholResponse.postValue(Resource.Success(it))
                 }

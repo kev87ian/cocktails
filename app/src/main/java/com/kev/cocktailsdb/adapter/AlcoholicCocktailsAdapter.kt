@@ -11,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kev.cocktailsdb.R
 import com.kev.cocktailsdb.model.Drink
-import com.kev.cocktailsdb.ui.CocktailDetailsActivity
 import kotlinx.android.synthetic.main.cocktail_layout_file.view.*
 
 @Suppress("NAME_SHADOWING")
-class AlcoholicCocktailsAdapter(private val context: Context) :
+class AlcoholicCocktailsAdapter() :
     RecyclerView.Adapter<AlcoholicCocktailsAdapter.CocktailsViewHolder>() {
 
 
@@ -32,7 +31,7 @@ class AlcoholicCocktailsAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
 
         val currentCocktail = differ.currentList[position]
-        holder.bind(currentCocktail, context)
+        holder.bind(currentCocktail, holder.itemView.context)
 
     }
 
@@ -48,13 +47,13 @@ class AlcoholicCocktailsAdapter(private val context: Context) :
             Glide.with(context).load(drink.strDrinkThumb).fitCenter()
                 .placeholder(R.drawable.loading).into(itemView.iv_cocktail_image)
 
-            itemView.setOnClickListener {
-                val intent = Intent(context, CocktailDetailsActivity::class.java)
-                intent.putExtra("idDrink", drink.idDrink)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(intent)
-
-            }
+//            itemView.setOnClickListener {
+//                val intent = Intent(context, CocktailDetailsActivity::class.java)
+//                intent.putExtra("idDrink", drink.idDrink)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                context.startActivity(intent)
+//
+//            }
 
         }
     }

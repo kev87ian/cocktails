@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/alcoholicCocktailsActivity"
+    <item android:id="@+id/alcoholicCocktailsFragment"
         android:title="Alcoholic Cocktails"
         android:icon="@drawable/ic_baseline_wine_bar_24" />
 
-    <item android:id="@+id/NAlcoholicCocktailsActivity"
+    <item android:id="@+id/NAlcoholicCocktailsFragment"
         android:title="Non-Alcoholic Cocktails"
         android:icon="@drawable/ic_baseline_wine_bar_24" />
 

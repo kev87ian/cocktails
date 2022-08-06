@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/fragment_alcoholic_cocktails.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/fragment_cocktail_details.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/fragment_n_alcoholic_cocktails.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/fragment_nalcoholic_cocktails.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.37916666666666665" />
       </map>
     </option>

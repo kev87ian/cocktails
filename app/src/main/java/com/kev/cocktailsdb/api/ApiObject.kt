@@ -35,7 +35,7 @@ object ApiObject {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(requestInterceptor)
-            .connectTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .build()
 

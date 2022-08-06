@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cocktails_nav_graph.xml"
+    app:startDestination="@id/alcoholicCocktailsFragment">
+
+    <fragment
+        android:id="@+id/alcoholicCocktailsFragment"
+        android:name="com.kev.cocktailsdb.ui.fragments.AlcoholicCocktailsFragment"
+        android:label="fragment_alcoholic_cocktails"
+        tools:layout="@layout/fragment_alcoholic_cocktails" >
+        <action
+            android:id="@+id/action_alcoholicCocktailsFragment_to_cocktailDetailsFragment"
+            app:destination="@id/cocktailDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NAlcoholicCocktailsFragment"
+        android:name="com.kev.cocktailsdb.ui.fragments.NAlcoholicCocktailsFragment"
+        android:label="NAlcoholicCocktailsFragment" >
+        <action
+            android:id="@+id/action_NAlcoholicCocktailsFragment_to_cocktailDetailsFragment"
+            app:destination="@id/cocktailDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cocktailDetailsFragment"
+        android:name="com.kev.cocktailsdb.ui.fragments.CocktailDetailsFragment"
+        android:label="fragment_cocktail_details"
+        tools:layout="@layout/fragment_cocktail_details" />
+</navigation>
