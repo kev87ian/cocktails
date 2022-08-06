@@ -29,7 +29,7 @@ class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cockta
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
 
-        cocktailsAdapter.setOnItemClickListener {
+
             cocktailsAdapter.setOnItemClickListener {
                 val bundle = Bundle().apply {
                     putSerializable("drink", it.idDrink)
@@ -38,7 +38,7 @@ class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cockta
                     R.id.action_NAlcoholicCocktailsFragment_to_cocktailDetailsFragment, bundle
                 )
             }
-        }
+
 
         viewModel.nDownloadedAlcoholResponse.observe(viewLifecycleOwner, Observer {response->
 
