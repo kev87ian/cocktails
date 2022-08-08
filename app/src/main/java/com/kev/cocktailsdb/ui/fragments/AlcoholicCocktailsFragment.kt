@@ -29,7 +29,6 @@ class AlcoholicCocktailsFragment : Fragment(R.layout.fragment_alcoholic_cocktail
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
 
-        adapterClickListener()
 
         viewModel.downloadedAlcoholResponse.observe(viewLifecycleOwner, Observer { response ->
 
@@ -54,14 +53,7 @@ class AlcoholicCocktailsFragment : Fragment(R.layout.fragment_alcoholic_cocktail
         })
     }
 
-    private fun adapterClickListener() {
-        cocktailsAdapter.setOnClickListener {drink->
-            val bundle = Bundle().apply { putSerializable("drink", drink.idDrink) }
-            findNavController().navigate(R.id.action_alcoholicCocktailsFragment_to_cocktailDetailsFragment, bundle)
-            Toast.makeText(activity, "${drink.strDrink} clicked", Toast.LENGTH_LONG).show()
-            Log.d(TAG, drink.strDrink)
-        }
-    }
+
 
 
     private fun setupRecyclerView() {

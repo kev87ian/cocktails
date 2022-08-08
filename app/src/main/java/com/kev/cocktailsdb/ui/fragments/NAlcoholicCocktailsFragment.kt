@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -30,14 +31,6 @@ class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cockta
         setupRecyclerView()
 
 
-            cocktailsAdapter.setOnClickListener {
-                val bundle = Bundle().apply {
-                    putSerializable("drink", it.idDrink)
-                }
-                findNavController().navigate(
-                    R.id.action_NAlcoholicCocktailsFragment_to_cocktailDetailsFragment, bundle
-                )
-            }
 
 
         viewModel.nDownloadedAlcoholResponse.observe(viewLifecycleOwner, Observer {response->

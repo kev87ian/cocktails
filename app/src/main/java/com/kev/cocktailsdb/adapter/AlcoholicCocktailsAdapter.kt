@@ -1,20 +1,37 @@
 package com.kev.cocktailsdb.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kev.cocktailsdb.R
 import com.kev.cocktailsdb.model.Drink
+import com.kev.cocktailsdb.ui.CocktailsDetailsActivity
+import com.kev.cocktailsdb.ui.fragments.AlcoholicCocktailsFragmentDirections
+import com.kev.cocktailsdb.ui.fragments.CocktailDetailsFragment
+import com.kev.cocktailsdb.ui.fragments.CocktailDetailsFragmentArgs
 import kotlinx.android.synthetic.main.cocktail_layout_file.view.*
 
 @Suppress("NAME_SHADOWING")
 class AlcoholicCocktailsAdapter() :
     RecyclerView.Adapter<AlcoholicCocktailsAdapter.CocktailsViewHolder>() {
+
+    class CocktailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        fun bind(drink: Drink, context: Context) {
+
+            itemView.tv_cocktail_name.text = drink.strDrink
+            Glide.with(context).load(drink.strDrinkThumb).fitCenter().placeholder(R.drawable.loading).into(itemView.iv_cocktail_image)
+        }
+    }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailsViewHolder {
@@ -25,52 +42,22 @@ class AlcoholicCocktailsAdapter() :
 
     }
 
-//    override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
-//
-//        val currentCocktail = differ.currentList[position]
-//        holder.bind(currentCocktail, holder.itemView.context)
-//
-//
-//        setOnClickListener {
-//            onItemClickListener?.let { it(currentCocktail) }
-//        }
-//    }
-
-    override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
-        val currentCocktail = differ.currentList[position]
-        holder.itemView.apply {
-            Glide.with(this).load(currentCocktail.strDrinkThumb).placeholder(R.drawable.loading).into(iv_cocktail_image)
-            tv_cocktail_name.text = currentCocktail.strDrink
-
-            setOnClickListener {
-                onItemClickListener?.let { it(currentCocktail) }
-        }
-
-        }
-    }
-
-     fun setOnClickListener(listener: (Drink) -> Unit) {
-            onItemClickListener = listener
-
-    }
-    private var onItemClickListener: ((Drink) -> Unit)? = null
-
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
 
+    override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
 
-    class CocktailsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val currentCocktail = differ.currentList[position]
+        holder.bind(currentCocktail, holder.itemView.context)
 
-        fun bind(drink: Drink, context: Context) {
-
-            itemView.tv_cocktail_name.text = drink.strDrink
-            Glide.with(context).load(drink.strDrinkThumb).fitCenter()
-                .placeholder(R.drawable.loading).into(itemView.iv_cocktail_image)
-
-
-        }
+      holder.itemView.setOnClickListener{
+        val intent = Intent(holder.itemView.context, CocktailsDetailsActivity::class.java)
+          intent.putExtra("id", currentCocktail.idDrink)
+          holder.itemView.context.startActivity(intent)
+      }
     }
+
 
     private val diffCallBack = object : DiffUtil.ItemCallback<Drink>() {
         override fun areItemsTheSame(oldItem: Drink, newItem: Drink): Boolean {
@@ -82,6 +69,7 @@ class AlcoholicCocktailsAdapter() :
         }
 
     }
+
 
     val differ = AsyncListDiffer(this, diffCallBack)
 
