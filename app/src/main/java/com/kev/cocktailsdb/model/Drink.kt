@@ -1,6 +1,7 @@
 package com.kev.cocktailsdb.model
 
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -12,11 +13,12 @@ data class Drink(
     val strAlcoholic: String,
     @SerializedName("strCategory")
     val strCategory: String,
-    @SerializedName("strCreativeCommonsConfirmed")
-    val strCreativeCommonsConfirmed: String,
+//    @SerializedName("strCreativeCommonsConfirmed")
+//    val strCreativeCommonsConfirmed: String,
     @SerializedName("strDrink")
     val strDrink: String,
     @SerializedName("strDrinkAlternate")
+    @Expose
     val strDrinkAlternate: String,
     @SerializedName("strDrinkThumb")
     val strDrinkThumb: String,

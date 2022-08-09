@@ -56,6 +56,8 @@ class CocktailDetailsViewModel(
     }
 
 
+
+
     init {
         getCocktailDetails(cocktailId)
 
