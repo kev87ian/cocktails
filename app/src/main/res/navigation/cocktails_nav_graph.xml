@@ -10,25 +10,12 @@
         android:name="com.kev.cocktailsdb.view.ui.fragments.AlcoholicCocktailsFragment"
         android:label="fragment_alcoholic_cocktails"
         tools:layout="@layout/fragment_alcoholic_cocktails" >
-        <action
-            android:id="@+id/action_alcoholicCocktailsFragment_to_cocktailDetailsFragment"
-            app:destination="@id/cocktailDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/NAlcoholicCocktailsFragment"
         android:name="com.kev.cocktailsdb.view.ui.fragments.NAlcoholicCocktailsFragment"
-        android:label="NAlcoholicCocktailsFragment" >
-        <action
-            android:id="@+id/action_NAlcoholicCocktailsFragment_to_cocktailDetailsFragment"
-            app:destination="@id/cocktailDetailsFragment" />
+        android:label="NAlcoholicCocktailsFragment"
+        tools:layout="@layout/fragment_nalcoholic_cocktails">
     </fragment>
-    <fragment
-        android:id="@+id/cocktailDetailsFragment"
-        android:name="com.kev.cocktailsdb.view.ui.fragments.CocktailDetailsFragment"
-        android:label="fragment_cocktail_details"
-        tools:layout="@layout/fragment_cocktail_details" >
-        <argument
-            android:name="drink"
-            app:argType="com.kev.cocktailsdb.model.Drink" />
-    </fragment>
+
 </navigation>

@@ -32,17 +32,17 @@ class AlcoholicCocktailsFragment : Fragment(R.layout.fragment_alcoholic_cocktail
 
             when (response) {
                 is Resource.Success -> {
-                    progressBarr.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                     cocktailsAdapter.differ.submitList(response.data?.drinks)
                 }
 
                 is Resource.Loading -> {
-                    progressBarr.visibility = View.VISIBLE
+                    progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Error -> {
-                    progressBarr.visibility = View.GONE
-                    errorTV.text = response.message
-                    errorTV.visibility = View.VISIBLE
+                    progressBar.visibility = View.GONE
+                    errorTv.text = response.message
+                    errorTv.visibility = View.VISIBLE
                     Log.d(TAG, response.message.toString())
 
                 }

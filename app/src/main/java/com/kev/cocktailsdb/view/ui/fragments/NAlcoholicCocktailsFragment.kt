@@ -42,7 +42,7 @@ class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cockta
                 is Resource.Error ->{
                     progressBarN.visibility = View.GONE
                     errorTvN.text = response.message
-                    errorTV.visibility = View.VISIBLE
+                   errorTvN.visibility = View.GONE
                     Log.d(TAG, response.message.toString())
                 }
 

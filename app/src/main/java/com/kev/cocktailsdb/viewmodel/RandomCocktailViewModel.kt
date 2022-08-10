@@ -13,6 +13,7 @@ import com.kev.cocktailsdb.data.model.CocktailsResponse
 import com.kev.cocktailsdb.data.repository.RandomCocktailRepository
 import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class RandomCocktailViewModel(
     application: HiltApplication,
@@ -24,11 +25,11 @@ class RandomCocktailViewModel(
         get() = _randomCocktail
 
 
-    private suspend fun safeRandomCocktailsCall() = viewModelScope.launch {
+    private suspend fun safeRandomCocktailCall() = viewModelScope.launch {
+        _randomCocktail.postValue(Resource.Loading())
         try {
-
             if (hasInternet()) {
-                _randomCocktail.postValue(Resource.Loading())
+
                 val response = repository.getRandomCocktail()
                 response.body()?.let {
                     _randomCocktail.postValue(Resource.Success(it))
@@ -39,14 +40,21 @@ class RandomCocktailViewModel(
             }
 
         } catch (e: Exception) {
+            when (e) {
+                is IOException -> _randomCocktail.postValue(Resource.Error("No internet connection."))
 
-
+                else -> _randomCocktail.postValue(Resource.Error("JSON conversion error."))
+            }
         }
+
     }
 
+    private fun getRandomCocktail() = viewModelScope.launch {
+        safeRandomCocktailCall()
+    }
 
     init {
-
+        getRandomCocktail()
     }
 
     private fun hasInternet(): Boolean {
