@@ -3,9 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.241" />
         <entry key="app/src/main/res/layout/activity_cocktail_details.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/activity_cocktails_details.xml" value="0.28785131459655483" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.32155797101449274" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_nalcoholic_cocktails.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/cocktail_layout_file.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/fragment_alcoholic_cocktails.xml" value="0.32155797101449274" />
@@ -13,6 +14,7 @@
         <entry key="app/src/main/res/layout/fragment_n_alcoholic_cocktails.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_nalcoholic_cocktails.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.37916666666666665" />
+        <entry key="app/src/main/res/menu/menu_top_nav.xml" value="0.31124412141941" />
       </map>
     </option>
   </component>

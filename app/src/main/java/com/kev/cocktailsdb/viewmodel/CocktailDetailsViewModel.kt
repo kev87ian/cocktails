@@ -16,16 +16,14 @@ import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class CocktailDetailsViewModel(
-    app: HiltApplication,
-    cocktailId: Int, private val repository: CocktailDetailsRepository
-) :
-    AndroidViewModel(app) {
+class CocktailDetailsViewModel(app: HiltApplication, cocktailId: Int, private val repository: CocktailDetailsRepository) : AndroidViewModel(app) {
+
 
 
     private val _downloadedCocktailDetails = MutableLiveData<Resource<CocktailsResponse>>()
     val downloadedCocktailDetails: LiveData<Resource<CocktailsResponse>>
      get() = _downloadedCocktailDetails
+
 
 
     private suspend fun safeDetailsCall(cocktailId: Int) = viewModelScope.launch {
@@ -50,12 +48,11 @@ class CocktailDetailsViewModel(
     }
 
 
+
     private fun getCocktailDetails(cocktailId: Int) = viewModelScope.launch {
         safeDetailsCall(cocktailId)
 
     }
-
-
 
 
     init {

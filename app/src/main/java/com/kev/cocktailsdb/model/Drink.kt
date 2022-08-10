@@ -1,18 +1,25 @@
 package com.kev.cocktailsdb.model
 
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(tableName = "drinks")
 data class Drink(
-
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("idDrink")
-    val idDrink: Int,
+    @ColumnInfo(name = "idDrink") val idDrink: Int,
+
     @SerializedName("strAlcoholic")
     val strAlcoholic: String,
+
     @SerializedName("strCategory")
-    val strCategory: String,
+
+    @ColumnInfo(name = "strCategory") val strCategory: String,
 //    @SerializedName("strCreativeCommonsConfirmed")
 //    val strCreativeCommonsConfirmed: String,
     @SerializedName("strDrink")
@@ -21,7 +28,7 @@ data class Drink(
     @Expose
     val strDrinkAlternate: String,
     @SerializedName("strDrinkThumb")
-    val strDrinkThumb: String,
+    @ColumnInfo(name = "strDrinkThumb") val strDrinkThumb: String,
     @SerializedName("strGlass")
     val strGlass: String,
 

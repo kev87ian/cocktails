@@ -17,7 +17,10 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 
-class CocktailsViewModel constructor(app: HiltApplication, private val repository: CocktailsRepository) :
+class CocktailsViewModel constructor(
+    app: HiltApplication,
+    private val repository: CocktailsRepository
+) :
     AndroidViewModel(app) {
 
 
@@ -28,7 +31,8 @@ class CocktailsViewModel constructor(app: HiltApplication, private val repositor
 
     private val _NDownloadedAlcoholResponse = MutableLiveData<Resource<CocktailsResponse>>()
     val nDownloadedAlcoholResponse: LiveData<Resource<CocktailsResponse>>
-    get() = _NDownloadedAlcoholResponse
+        get() = _NDownloadedAlcoholResponse
+
 
     private suspend fun safeAlcoholCall() = viewModelScope.launch {
         _downloadedAlcoholResponse.postValue(Resource.Loading())
@@ -51,24 +55,24 @@ class CocktailsViewModel constructor(app: HiltApplication, private val repositor
         }
     }
 
-    private suspend fun  safeNonAlcoholicCall() = viewModelScope.launch {
+    private suspend fun safeNonAlcoholicCall() = viewModelScope.launch {
         _NDownloadedAlcoholResponse.postValue(Resource.Loading())
 
         try {
-            if (hasInternet()){
+            if (hasInternet()) {
                 val response = repository.getNAlcoholCocktails()
                 response.body()?.let {
                     _NDownloadedAlcoholResponse.postValue(Resource.Success(it))
                 }
 
-            } else{
+            } else {
                 _NDownloadedAlcoholResponse.postValue(Resource.Error("No internet connection."))
             }
 
         } catch (t: Throwable) {
             when (t) {
                 is IOException -> _NDownloadedAlcoholResponse.postValue(Resource.Error("Network Failure"))
-                else ->_NDownloadedAlcoholResponse.postValue(Resource.Error("Conversion Error."))
+                else -> _NDownloadedAlcoholResponse.postValue(Resource.Error("Conversion Error."))
             }
         }
     }

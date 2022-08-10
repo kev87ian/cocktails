@@ -42,7 +42,7 @@ class CocktailsDetailActivity : AppCompatActivity() {
 
             when (response) {
                 is Resource.Success -> {
-                    progressBar.visibility = View.GONE
+                    progress_bar.visibility = View.GONE
                     response.data.let {
                         val drink = it?.drinks?.get(0)
                         setCocktail(drink)
@@ -50,13 +50,14 @@ class CocktailsDetailActivity : AppCompatActivity() {
 
                 }
                 is Resource.Loading -> {
-                    progressBar.visibility = View.VISIBLE
+                    progress_bar.visibility = View.VISIBLE
+
                 }
 
                 is Resource.Error -> {
-                    errorTvDetails.visibility = View.VISIBLE
-                    errorTvDetails.text = response.message.toString()
-                    progressBar.visibility = View.GONE
+                    txt_error.visibility = View.VISIBLE
+                    txt_error.text = response.message.toString()
+                    progress_bar.visibility = View.GONE
                 }
 
             }
@@ -65,18 +66,18 @@ class CocktailsDetailActivity : AppCompatActivity() {
     }
 
     private fun setCocktail(drink: Drink?) {
-//
-//        Glide.with(baseContext).load(drink?.strDrinkThumb).placeholder(R.drawable.loading)
-//            .into(cocktailDetailImageView)
-//        cocktailDetailNameTV.text = drink?.strDrink
-//
-//        cocktailDetailIngredient1Tv.text =
-//            drink?.strIngredient1?.plus(",").plus(" ").plus(drink?.strIngredient2).plus(",")
-//                .plus(" ").plus(drink?.strIngredient3).plus(",").plus(" ")
-//                .plus(drink?.strIngredient4)
-//        cocktailDetailInstructionsTv.text = drink?.strInstructions
-//        cocktailDetailsCategoryTV.text = drink?.strCategory
-//        cocktailDetailsGlassType.text = drink?.strGlass
+
+        Glide.with(baseContext).load(drink?.strDrinkThumb).placeholder(R.drawable.loading)
+            .into(cocktailDetailsImageView)
+        cocktailDetailsNameTv.text = drink?.strDrink
+
+        cocktailDetailsIngredientsTV.text =
+            drink?.strIngredient1?.plus(",").plus(" ").plus(drink?.strIngredient2).plus(",")
+                .plus(" ").plus(drink?.strIngredient3).plus(",").plus(" ")
+                .plus(drink?.strIngredient4)
+        cocktailDetailsInstructionsTV.text = drink?.strInstructions
+        cocktailDetailsCategoryTV.text = drink?.strCategory
+        cocktailDetailsAlcoholicTV.text = drink?.strAlcoholic
     }
 
 
