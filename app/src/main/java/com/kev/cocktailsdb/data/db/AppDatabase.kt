@@ -1,12 +1,12 @@
 /*
-package com.kev.cocktailsdb.db
+package com.kev.cocktailsdb.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.kev.cocktailsdb.model.Drink
+import com.kev.cocktailsdb.data.model.Drink
 
 @Database(entities = [Drink::class], version = 1, exportSchema = false)
 

@@ -3,7 +3,7 @@ package com.kev.cocktailsdb.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kev.cocktailsdb.HiltApplication
-import com.kev.cocktailsdb.repository.CocktailsRepository
+import com.kev.cocktailsdb.data.repository.CocktailsRepository
 
 class MainViewModelProviderFactory(val app: HiltApplication,private val repository: CocktailsRepository) : ViewModelProvider.Factory {
 

@@ -1,4 +1,4 @@
-package com.kev.cocktailsdb.adapter
+package com.kev.cocktailsdb.view.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kev.cocktailsdb.R
-import com.kev.cocktailsdb.model.Drink
-import com.kev.cocktailsdb.ui.CocktailsDetailActivity
+import com.kev.cocktailsdb.data.model.Drink
+import com.kev.cocktailsdb.view.ui.CocktailsDetailActivity
 import kotlinx.android.synthetic.main.cocktail_layout_file.view.*
 
 @Suppress("NAME_SHADOWING")

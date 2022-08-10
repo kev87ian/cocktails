@@ -1,17 +1,15 @@
-package com.kev.cocktailsdb.ui.fragments
+package com.kev.cocktailsdb.view.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kev.cocktailsdb.R
-import com.kev.cocktailsdb.adapter.AlcoholicCocktailsAdapter
-import com.kev.cocktailsdb.ui.MainActivity
+import com.kev.cocktailsdb.view.adapter.AlcoholicCocktailsAdapter
+import com.kev.cocktailsdb.view.ui.MainActivity
 import com.kev.cocktailsdb.util.Resource
 import com.kev.cocktailsdb.viewmodel.CocktailsViewModel
 import kotlinx.android.synthetic.main.fragment_alcoholic_cocktails.*

@@ -18,13 +18,13 @@
         android:theme="@style/Theme.CocktailsDB"
         tools:targetApi="31">
         <activity
-            android:name=".ui.RandomCocktailActivity"
+            android:name="com.kev.cocktailsdb.view.ui.RandomCocktailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.CocktailsDetailActivity"
+            android:name="com.kev.cocktailsdb.view.ui.CocktailsDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.kev.cocktailsdb.view.ui.MainActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="true">
             <intent-filter>

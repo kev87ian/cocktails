@@ -1,4 +1,4 @@
-package com.kev.cocktailsdb.model
+package com.kev.cocktailsdb.data.model
 
 
 import com.google.gson.annotations.SerializedName

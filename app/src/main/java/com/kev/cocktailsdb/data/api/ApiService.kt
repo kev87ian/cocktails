@@ -1,7 +1,6 @@
-package com.kev.cocktailsdb.api
+package com.kev.cocktailsdb.data.api
 
-import com.kev.cocktailsdb.model.CocktailsResponse
-import com.kev.cocktailsdb.model.Drink
+import com.kev.cocktailsdb.data.model.CocktailsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

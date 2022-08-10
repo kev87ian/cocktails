@@ -3,7 +3,7 @@ package com.kev.cocktailsdb.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kev.cocktailsdb.HiltApplication
-import com.kev.cocktailsdb.repository.CocktailDetailsRepository
+import com.kev.cocktailsdb.data.repository.CocktailDetailsRepository
 
 @Suppress("UNCHECKED_CAST")
 class CocktailDetailsViewModelProviderFactory

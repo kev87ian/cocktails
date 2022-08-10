@@ -1,4 +1,4 @@
-package com.kev.cocktailsdb.ui
+package com.kev.cocktailsdb.view.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.R
-import com.kev.cocktailsdb.repository.CocktailsRepository
+import com.kev.cocktailsdb.data.repository.CocktailsRepository
 import com.kev.cocktailsdb.viewmodel.CocktailsViewModel
 import com.kev.cocktailsdb.viewmodel.MainViewModelProviderFactory
 

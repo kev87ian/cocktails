@@ -1,6 +1,6 @@
-package com.kev.cocktailsdb.repository
+package com.kev.cocktailsdb.data.repository
 
-import com.kev.cocktailsdb.api.ApiObject
+import com.kev.cocktailsdb.data.api.ApiObject
 
 class CocktailsRepository {
     suspend fun getCocktails() = ApiObject.getClient().getAlcoholicCocktails()

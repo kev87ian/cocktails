@@ -1,28 +1,21 @@
-package com.kev.cocktailsdb.ui
+package com.kev.cocktailsdb.view.ui
 
 
-import android.R.attr
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.R
-import com.kev.cocktailsdb.model.CocktailsResponse
-import com.kev.cocktailsdb.model.Drink
-import com.kev.cocktailsdb.repository.CocktailDetailsRepository
+import com.kev.cocktailsdb.data.model.Drink
+import com.kev.cocktailsdb.data.repository.CocktailDetailsRepository
 import com.kev.cocktailsdb.util.Resource
 import com.kev.cocktailsdb.viewmodel.CocktailDetailsViewModel
 import kotlinx.android.synthetic.main.activity_cocktails_details.*
-import org.json.JSONObject
-import java.lang.reflect.Type
 
 
 class CocktailsDetailActivity : AppCompatActivity() {

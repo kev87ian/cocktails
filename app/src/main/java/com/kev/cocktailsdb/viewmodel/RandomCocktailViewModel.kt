@@ -4,62 +4,50 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.data.model.CocktailsResponse
-import com.kev.cocktailsdb.data.repository.CocktailDetailsRepository
+import com.kev.cocktailsdb.data.repository.RandomCocktailRepository
 import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
-import java.io.IOException
 
-class CocktailDetailsViewModel(app: HiltApplication, cocktailId: Int, private val repository: CocktailDetailsRepository) : AndroidViewModel(app) {
+class RandomCocktailViewModel(
+    application: HiltApplication,
+    val repository: RandomCocktailRepository
+) : AndroidViewModel(application) {
+
+    private val _randomCocktail = MutableLiveData<Resource<CocktailsResponse>>()
+    val randomCocktail: LiveData<Resource<CocktailsResponse>>
+        get() = _randomCocktail
 
 
-
-    private val _downloadedCocktailDetails = MutableLiveData<Resource<CocktailsResponse>>()
-    val downloadedCocktailDetails: LiveData<Resource<CocktailsResponse>>
-     get() = _downloadedCocktailDetails
-
-
-
-    private suspend fun safeDetailsCall(cocktailId: Int) = viewModelScope.launch {
-        _downloadedCocktailDetails.postValue(Resource.Loading())
+    private suspend fun safeRandomCocktailsCall() = viewModelScope.launch {
         try {
+
             if (hasInternet()) {
-                val response = repository.getCocktailDetails(cocktailId)
+                _randomCocktail.postValue(Resource.Loading())
+                val response = repository.getRandomCocktail()
                 response.body()?.let {
-                    _downloadedCocktailDetails.postValue(Resource.Success(it))
+                    _randomCocktail.postValue(Resource.Success(it))
                 }
+
             } else {
-                _downloadedCocktailDetails.postValue(Resource.Error("No internet Connection."))
+                _randomCocktail.postValue(Resource.Error("No internet connection."))
             }
 
         } catch (e: Exception) {
-            Log.d("Retrofit", e.message.toString())
-            when (e) {
-                is IOException -> _downloadedCocktailDetails.postValue(Resource.Error("Network Failure"))
-                else -> _downloadedCocktailDetails.postValue(Resource.Error("Json Conversion Error"))
-            }
+
+
         }
     }
 
 
-
-    private fun getCocktailDetails(cocktailId: Int) = viewModelScope.launch {
-        safeDetailsCall(cocktailId)
-
-    }
-
-
     init {
-        getCocktailDetails(cocktailId)
 
     }
-
 
     private fun hasInternet(): Boolean {
         val connectivityManager = getApplication<HiltApplication>().getSystemService(
@@ -93,5 +81,4 @@ class CocktailDetailsViewModel(app: HiltApplication, cocktailId: Int, private va
 
         return false
     }
-
 }
