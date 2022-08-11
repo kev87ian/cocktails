@@ -5,10 +5,10 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.241" />
         <entry key="app/src/main/res/layout/activity_cocktail_details.xml" value="0.32155797101449274" />
-        <entry key="app/src/main/res/layout/activity_cocktails_details.xml" value="0.28785131459655483" />
+        <entry key="app/src/main/res/layout/activity_cocktails_details.xml" value="0.30730265934993667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_nalcoholic_cocktails.xml" value="0.32155797101449274" />
-        <entry key="app/src/main/res/layout/activity_random_cocktail.xml" value="0.31124412141941" />
+        <entry key="app/src/main/res/layout/activity_random_cocktail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/cocktail_layout_file.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/fragment_alcoholic_cocktails.xml" value="0.32155797101449274" />
         <entry key="app/src/main/res/layout/fragment_cocktail_details.xml" value="0.32155797101449274" />

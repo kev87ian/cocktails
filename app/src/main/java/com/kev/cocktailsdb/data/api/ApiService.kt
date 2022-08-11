@@ -18,6 +18,9 @@ interface ApiService {
     @GET("1/lookup.php?")
     suspend fun getCocktailDetails(@Query("i")id : Int) : Response<CocktailsResponse>
 
+    //https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita
     @GET("1/random.php")
     suspend fun getRandomCocktail() : Response<CocktailsResponse>
+    @GET("1/search.php?")
+    suspend fun searchCocktail(@Query("s")name : String):Response<CocktailsResponse>
 }

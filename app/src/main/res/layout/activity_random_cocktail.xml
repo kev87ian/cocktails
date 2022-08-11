@@ -50,7 +50,7 @@
             android:layout_marginTop="150dp"
             android:text="No internet"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/hguidelineEndImageView"
+            app:layout_constraintBottom_toTopOf="@id/hguidelineEndView"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/vguidelineEnd"
             app:layout_constraintStart_toStartOf="@id/vguidelinestart"
@@ -60,11 +60,13 @@
             android:id="@+id/randomCocktailsProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/hguidelineEndImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/errorRandomCocktail" />
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/hguidelineEndView"
+            app:layout_constraintEnd_toEndOf="@id/vguidelineEnd"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/vguidelinestart"
+            app:layout_constraintTop_toBottomOf="@id/errorRandomCocktail"
+            app:layout_constraintVertical_bias="0" />
 
         <ImageView
             android:id="@+id/randomCocktailImageView"
