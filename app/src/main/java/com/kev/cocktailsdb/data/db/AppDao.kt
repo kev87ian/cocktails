@@ -1,4 +1,4 @@
-/*
+
 package com.kev.cocktailsdb.data.db
 
 import androidx.lifecycle.LiveData
@@ -11,11 +11,11 @@ import com.kev.cocktailsdb.data.model.Drink
 @Dao
 interface AppDao {
     @Query("SELECT * FROM drinks")
-    fun getAllRecords() : LiveData<List<Drink>>
+    fun getAllRecords(): LiveData<List<Drink>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsertRecords(drink: Drink)
 
     @Query("DELETE FROM drinks")
-     fun deleteRecords()
-}*/
+    fun deleteRecords()
+}

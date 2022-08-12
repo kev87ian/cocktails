@@ -36,6 +36,7 @@ class CocktailsViewModel constructor(
 
     private suspend fun safeAlcoholCall() = viewModelScope.launch {
         _downloadedAlcoholResponse.postValue(Resource.Loading())
+
         try {
             if (hasInternet()) {
                 val response = repository.getCocktails()
@@ -43,10 +44,13 @@ class CocktailsViewModel constructor(
                 response.body()?.let {
                     _downloadedAlcoholResponse.postValue(Resource.Success(it))
                 }
-            } else {
+            }
+            else {
                 _downloadedAlcoholResponse.postValue(Resource.Error("No Internet Connection"))
             }
-        } catch (t: Throwable) {
+        }
+
+        catch (t: Throwable) {
             when (t) {
                 is IOException -> _downloadedAlcoholResponse.postValue(Resource.Error("Network Failure"))
 
@@ -71,7 +75,7 @@ class CocktailsViewModel constructor(
 
         } catch (t: Throwable) {
             when (t) {
-                is IOException -> _NDownloadedAlcoholResponse.postValue(Resource.Error("Network Failure"))
+                is IOException -> _NDownloadedAlcoholResponse.postValue(Resource.Error("No internet connection."))
                 else -> _NDownloadedAlcoholResponse.postValue(Resource.Error("Conversion Error."))
             }
         }

@@ -25,42 +25,44 @@ class CocktailSearchViewModel(
         get() = _searchCocktailResponse
 
 
-    private suspend fun safeSearchQuery(cocktailName: String) = viewModelScope.launch {
+        private suspend fun safeSearchQuery(cocktailName: String) = viewModelScope.launch {
 
-        _searchCocktailResponse.postValue(Resource.Loading())
-        try {
+            _searchCocktailResponse.postValue(Resource.Loading())
+            val response = repository.searchCocktails(cocktailName)
 
-            if (hasInternet()){
+            try {
 
-                val response = repository.searchCocktails(cocktailName)
+                if (hasInternet()){
 
+                    if(response.isSuccessful && response.body() != null){
+                        response.body()?.let {
+                            _searchCocktailResponse.postValue(Resource.Success(it))
+                        }
+                    }
 
-                if (response.isSuccessful){
-
-                    response.body()?.let {
-                        _searchCocktailResponse.postValue(Resource.Success(it))
+                    else{
+                        response.body()?.let {
+                            _searchCocktailResponse.postValue(Resource.Error("No cocktails found."))
+                        }
                     }
 
                 }
 
                 else{
-                    _searchCocktailResponse.postValue(Resource.Error("No result found."))
+                    _searchCocktailResponse.postValue(Resource.Error("No internet connection."))
                 }
 
-            } else{
-                _searchCocktailResponse.postValue(Resource.Error("No internet connection."))
+
+
+            } catch (t:Throwable){
+                when(t){
+                    is IOException -> _searchCocktailResponse.postValue(Resource.Error("No internet connection"))
+
+                    else -> _searchCocktailResponse.postValue(Resource.Error(""))
+                }
+
             }
-
-        } catch (e:Exception){
-
-            when(e) {
-                is IOException -> _searchCocktailResponse.postValue(Resource.Error("No internet connection."))
-
-                else -> _searchCocktailResponse.postValue(Resource.Error("JSON conversion error."))
-            }
-
         }
-    }
 
 
     private fun searchCocktails(cocktailName: String) = viewModelScope.launch {

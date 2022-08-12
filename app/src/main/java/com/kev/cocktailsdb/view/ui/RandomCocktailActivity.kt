@@ -68,7 +68,7 @@ class RandomCocktailActivity : AppCompatActivity() {
 
         Glide.with(baseContext).load(drink.strDrinkThumb).placeholder(R.drawable.loading)
             .into(randomCocktailImageView)
-        randomCocktailNameTv.text = drink.strDrink
+        cocktailName.text = drink.strDrink
         Toast.makeText(this, drink.strDrink, Toast.LENGTH_LONG).show()
 
         randomCocktailDetailsCategoryTV.text = drink.strAlcoholic

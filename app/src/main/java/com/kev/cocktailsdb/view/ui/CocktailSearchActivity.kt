@@ -2,6 +2,7 @@ package com.kev.cocktailsdb.view.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,9 +24,11 @@ class CocktailSearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search_cocktail)
 
         setUpRecyclerView()
-        val cocktailName = intent.getStringExtra("userQuery").toString()
-        repository = SearchCocktailsRepository()
 
+        val cocktailName = intent.getStringExtra("userQuery").toString()
+        val drinkString = "Results for $cocktailName"
+
+        repository = SearchCocktailsRepository()
         val viewModelProviderFactory = CocktailSearchViewModelProviderFactory(
             repository,
             cocktailName,
@@ -43,11 +46,13 @@ class CocktailSearchActivity : AppCompatActivity() {
                 }
                 is Resource.Loading -> {
                     progressBar.visibility = View.VISIBLE
+
                 }
                 is Resource.Error -> {
-
+                    progressBar.visibility = View.GONE
                     errorTv.visibility = View.VISIBLE
                     errorTv.text = response.message
+                    Toast.makeText(baseContext, response.message, Toast.LENGTH_SHORT).show()
                 }
 
             }

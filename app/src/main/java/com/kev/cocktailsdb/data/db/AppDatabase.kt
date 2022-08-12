@@ -1,16 +1,15 @@
-/*
+
 package com.kev.cocktailsdb.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.kev.cocktailsdb.data.model.Drink
 
 @Database(entities = [Drink::class], version = 1, exportSchema = false)
 
-abstract class AppDatabase  : RoomDatabase(){
+abstract class AppDatabase  : RoomDatabase() {
 
     abstract fun getAppDao(): AppDao
 
@@ -31,4 +30,5 @@ abstract class AppDatabase  : RoomDatabase(){
             return DB_INSTANCE!!
         }
     }
-}*/
+}
+
