@@ -11,8 +11,8 @@ import com.kev.cocktailsdb.R
 import com.kev.cocktailsdb.data.model.Drink
 import com.kev.cocktailsdb.data.repository.RandomCocktailRepository
 import com.kev.cocktailsdb.util.Resource
+import com.kev.cocktailsdb.view.viewmodelprovider.RandomCocktailViewModelProviderFactory
 import com.kev.cocktailsdb.viewmodel.RandomCocktailViewModel
-import com.kev.cocktailsdb.viewmodel.RandomCocktailViewModelProviderFactory
 import kotlinx.android.synthetic.main.activity_random_cocktail.*
 
 

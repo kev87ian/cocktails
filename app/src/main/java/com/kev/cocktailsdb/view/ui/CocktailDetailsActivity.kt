@@ -18,7 +18,7 @@ import com.kev.cocktailsdb.viewmodel.CocktailDetailsViewModel
 import kotlinx.android.synthetic.main.activity_cocktails_details.*
 
 
-class CocktailsDetailActivity : AppCompatActivity() {
+class CocktailDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: CocktailDetailsViewModel
     private lateinit var repository: CocktailDetailsRepository
 

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/AlcoholicCocktailsRv"
+        app:layout_constraintBottom_toBottomOf="@+id/alcoholicCocktailsRv"
         android:id="@+id/errorTv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

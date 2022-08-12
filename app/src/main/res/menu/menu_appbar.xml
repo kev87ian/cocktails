@@ -4,9 +4,9 @@
 
 
     <item
-        android:id="@+id/menuIngredient"
+        android:id="@+id/menuSearchQuery"
         app:showAsAction="never"
-        android:title="Search by name" />
+        android:title="Search cocktail by name" />
 
     <item
         android:id="@+id/menuRandomCocktail"

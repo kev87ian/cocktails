@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.kev.cocktailsdb">
+    package="com.kev.cocktailsdb" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,17 +16,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CocktailsDB"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
-            android:name="com.kev.cocktailsdb.view.ui.RandomCocktailActivity"
+            android:name=".view.ui.CocktailSearchActivity"
             android:exported="false" />
         <activity
-            android:name="com.kev.cocktailsdb.view.ui.CocktailsDetailActivity"
+            android:name=".view.ui.RandomCocktailActivity"
             android:exported="false" />
         <activity
-            android:name="com.kev.cocktailsdb.view.ui.MainActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-            android:exported="true">
+            android:name=".view.ui.CocktailDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
