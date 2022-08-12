@@ -3,6 +3,7 @@ package com.kev.cocktailsdb.view.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,7 @@ import com.kev.cocktailsdb.data.model.Drink
 import com.kev.cocktailsdb.data.repository.CocktailDetailsRepository
 import com.kev.cocktailsdb.util.Resource
 import com.kev.cocktailsdb.viewmodel.CocktailDetailsViewModel
-import kotlinx.android.synthetic.main.activity_cocktails_details.*
+import kotlinx.android.synthetic.main.activity_random_cocktail.*
 
 
 class CocktailDetailsActivity : AppCompatActivity() {
@@ -24,7 +25,7 @@ class CocktailDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cocktails_details)
+        setContentView(R.layout.activity_random_cocktail)
 
         val cocktailId: Int = intent.getIntExtra("id", 1)
         repository = CocktailDetailsRepository()
@@ -35,22 +36,23 @@ class CocktailDetailsActivity : AppCompatActivity() {
 
             when (response) {
                 is Resource.Success -> {
-                    progress_bar.visibility = View.GONE
-                    response.data.let {
-                        val drink = it?.drinks?.get(0)
+                    randomCocktailsProgressBar.visibility = View.GONE
+                    response.data?.let {
+                        it
+                        val drink = it.drinks[0]
                         setCocktail(drink)
                     }
 
                 }
                 is Resource.Loading -> {
-                    progress_bar.visibility = View.VISIBLE
+                    randomCocktailsProgressBar.visibility = View.VISIBLE
 
                 }
 
                 is Resource.Error -> {
-                    txt_error.visibility = View.VISIBLE
-                    txt_error.text = response.message.toString()
-                    progress_bar.visibility = View.GONE
+                    errorRandomCocktail.visibility = View.VISIBLE
+                    errorRandomCocktail.text = response.message.toString()
+                    randomCocktailsProgressBar.visibility = View.GONE
                 }
 
             }
@@ -58,19 +60,113 @@ class CocktailDetailsActivity : AppCompatActivity() {
 
     }
 
-    private fun setCocktail(drink: Drink?) {
+    private fun setCocktail(drink: Drink) {
 
-        Glide.with(baseContext).load(drink?.strDrinkThumb).placeholder(R.drawable.loading)
-            .into(cocktailDetailsImageView)
-        cocktailDetailsNameTv.text = drink?.strDrink
 
-        cocktailDetailsIngredientsTV.text =
-            drink?.strIngredient1?.plus(",").plus(" ").plus(drink?.strIngredient2).plus(",")
-                .plus(" ").plus(drink?.strIngredient3).plus(",").plus(" ")
-                .plus(drink?.strIngredient4)
-        cocktailDetailsInstructionsTV.text = drink?.strInstructions
-        cocktailDetailsCategoryTV.text = drink?.strCategory
-        cocktailDetailsAlcoholicTV.text = drink?.strAlcoholic
+        Glide.with(baseContext).load(drink.strDrinkThumb).placeholder(R.drawable.loading)
+            .into(randomCocktailImageView)
+        cocktailName.text = drink.strDrink
+        Toast.makeText(this, drink.strDrink, Toast.LENGTH_LONG).show()
+
+        randomCocktailDetailsCategoryTV.text = drink.strAlcoholic
+        randomCocktailGlassTv.text = drink.strGlass
+        randomCocktailInstructionsTv.text = drink.strInstructions
+
+
+        if (!drink.strIngredient1.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient1))
+        }
+
+
+        if (!drink.strIngredient2.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient2))
+        }
+
+        if (!drink.strIngredient3.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient3))
+        }
+
+        if (!drink.strIngredient4.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient4))
+        }
+
+        if (!drink.strIngredient5.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient5))
+        }
+        if (!drink.strIngredient6.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient6))
+        }
+        if (!drink.strIngredient7.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient7))
+        }
+        if (!drink.strIngredient8.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient8))
+        }
+        if (!drink.strIngredient9.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient9))
+        }
+        if (!drink.strIngredient10.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient10))
+        }
+        if (!drink.strIngredient11.isNullOrEmpty()) {
+            drinkDetailIngredient1Tv.append("\n \u2022 ".plus(drink.strIngredient11))
+        }
+
+
+
+
+
+        if (!drink.strMeasure1.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure1))
+        }
+
+        if (!drink.strMeasure2.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure2))
+        }
+
+        if (!drink.strMeasure3.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure3))
+        }
+
+        if (!drink.strMeasure4.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure4))
+        }
+
+        if (!drink.strMeasure5.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure5))
+        }
+
+
+        if (!drink.strMeasure6.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure6))
+        }
+
+
+        if (!drink.strMeasure7.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure7))
+        }
+
+
+        if (!drink.strMeasure8.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure8))
+        }
+
+
+        if (!drink.strMeasure9.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure9))
+        }
+
+
+        if (!drink.strMeasure10.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure10))
+        }
+
+
+        if (!drink.strMeasure11.isNullOrEmpty()) {
+            drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure11))
+        }
+
+
     }
 
 

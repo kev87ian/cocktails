@@ -52,7 +52,7 @@ class CocktailsViewModel constructor(
 
         catch (t: Throwable) {
             when (t) {
-                is IOException -> _downloadedAlcoholResponse.postValue(Resource.Error("Network Failure"))
+                is IOException -> _downloadedAlcoholResponse.postValue(Resource.Error("No Internet Connection"))
 
                 else -> _downloadedAlcoholResponse.postValue(Resource.Error("Json Conversion Error"))
             }

@@ -8,11 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kev.cocktailsdb.R
+import com.kev.cocktailsdb.util.Resource
 import com.kev.cocktailsdb.view.adapter.AlcoholicCocktailsAdapter
 import com.kev.cocktailsdb.view.ui.MainActivity
-import com.kev.cocktailsdb.util.Resource
 import com.kev.cocktailsdb.viewmodel.CocktailsViewModel
-import kotlinx.android.synthetic.main.fragment_alcoholic_cocktails.*
 import kotlinx.android.synthetic.main.fragment_nalcoholic_cocktails.*
 
 class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cocktails) {
@@ -42,7 +41,7 @@ class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cockta
                 is Resource.Error ->{
                     progressBarN.visibility = View.GONE
                     errorTvN.text = response.message
-                   errorTvN.visibility = View.GONE
+                   errorTvN.visibility = View.VISIBLE
                     Log.d(TAG, response.message.toString())
                 }
 
