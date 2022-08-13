@@ -32,7 +32,7 @@ class CocktailDetailsActivity : AppCompatActivity() {
         val cocktailId: Int = intent.getIntExtra("id", 1)
         val cocktailName = intent.getStringExtra("name")
         viewModel = getViewModel(cocktailId)
-        toolbar.title = cocktailName
+
 
 
 
@@ -195,7 +195,7 @@ class CocktailDetailsActivity : AppCompatActivity() {
     private fun saveToDatabase(drink: Drink){
         addToFavorites.setOnClickListener {
             viewModel.saveCocktail(drink)
-            Toast.makeText(baseContext, "Cocktail favorited", Toast.LENGTH_LONG).show()
+            Toast.makeText(baseContext, "Cocktail favorited!", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -230,7 +230,7 @@ class CocktailDetailsActivity : AppCompatActivity() {
         tableeee.visibility = View.VISIBLE
         randomCocktailsProgressBar.visibility = View.GONE
         instrudctionsHeader.visibility = View.VISIBLE
-        toolbar.visibility = View.VISIBLE
+ /*       toolbar.visibility = View.VISIBLE*/
     }
 
     private fun onError(){

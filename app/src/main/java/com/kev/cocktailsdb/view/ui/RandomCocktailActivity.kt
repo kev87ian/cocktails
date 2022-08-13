@@ -31,21 +31,19 @@ class RandomCocktailActivity : AppCompatActivity() {
 
         val viewModelProviderFactory =
             RandomCocktailViewModelProviderFactory(application as HiltApplication, repository)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory)[RandomCocktailViewModel::class.java]
+        viewModel =
+            ViewModelProvider(this, viewModelProviderFactory)[RandomCocktailViewModel::class.java]
 
         viewModel.randomCocktail.observe(this) { response ->
 
             when (response) {
                 is Resource.Error -> {
 
-
-                    randomCocktailsProgressBar.visibility = View.GONE
-                    errorRandomCocktail.text = response.message
-                    errorRandomCocktail.visibility = View.VISIBLE
+                    hideViews()
                 }
 
                 is Resource.Success -> {
-                    randomCocktailsProgressBar.visibility = View.GONE
+                    showViews()
                     response.data?.let {
 
                         val drink = it.drinks[0]
@@ -56,17 +54,61 @@ class RandomCocktailActivity : AppCompatActivity() {
                 }
 
                 is Resource.Loading -> {
+                  onError()
+                    errorRandomCocktail.text = response.message
                     randomCocktailsProgressBar.visibility = View.VISIBLE
                 }
             }
         }
     }
 
+    private fun hideViews(){
+        /*Loading*/
+        randomCocktailImageView.visibility = View.GONE
+        randomCocktailsProgressBar.visibility = View.VISIBLE
+        randomCocktailInstructionsTv.visibility = View.GONE
+        cardView8.visibility = View.GONE
+        drinkDetailIngredient1Tv.visibility = View.GONE
+        drinkDetailMeasurement1Tv.visibility = View.GONE
+        addToFavorites.visibility = View.GONE
+        cardview1.visibility = View.GONE
+        tableeee.visibility = View.GONE
+        tableMeasarement.visibility = View.GONE
+        instrudctionsHeader.visibility = View.GONE
+    }
+
+    private fun showViews(){
+/*success*/
+        randomCocktailImageView.visibility = View.VISIBLE
+        randomCocktailDetailsCategoryTV.visibility = View.VISIBLE
+        randomCocktailInstructionsTv.visibility = View.VISIBLE
+        randomCocktailGlassTv.visibility = View.VISIBLE
+        drinkDetailIngredient1Tv.visibility = View.VISIBLE
+        drinkDetailMeasurement1Tv.visibility = View.VISIBLE
+        addToFavorites.visibility = View.VISIBLE
+        cardview1.visibility = View.VISIBLE
+        cardView8.visibility = View.VISIBLE
+        randomCocktailsProgressBar.visibility = View.GONE
+        tableMeasarement.visibility = View.VISIBLE
+        tableeee.visibility = View.VISIBLE
+        randomCocktailsProgressBar.visibility = View.GONE
+        instrudctionsHeader.visibility = View.VISIBLE
+        /*       toolbar.visibility = View.VISIBLE*/
+    }
+
+    private fun onError(){
+        hideViews()
+        randomCocktailsProgressBar.visibility = View.GONE
+        errorRandomCocktail.visibility = View.VISIBLE
+    }
+
+
+
     private fun addTofavorites(drink: Drink) {
 
-        addToFavorites.setOnClickListener{
+        addToFavorites.setOnClickListener {
             viewModel.saveCocktail(drink)
-            Toast.makeText(baseContext, "Succesfully saved", Toast.LENGTH_LONG).show()
+            Toast.makeText(baseContext, "Cocktail favorited!", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -75,7 +117,6 @@ class RandomCocktailActivity : AppCompatActivity() {
         Glide.with(baseContext).load(drink.strDrinkThumb).placeholder(R.drawable.loading)
             .into(randomCocktailImageView)
         cocktailName.text = drink.strDrink
-        Toast.makeText(this, drink.strDrink, Toast.LENGTH_LONG).show()
 
         randomCocktailDetailsCategoryTV.text = drink.strAlcoholic
         randomCocktailGlassTv.text = drink.strGlass
@@ -174,7 +215,6 @@ class RandomCocktailActivity : AppCompatActivity() {
         if (!drink.strMeasure11.isNullOrEmpty()) {
             drinkDetailMeasurement1Tv.append("\n : ".plus(drink.strMeasure11))
         }
-
 
 
     }
