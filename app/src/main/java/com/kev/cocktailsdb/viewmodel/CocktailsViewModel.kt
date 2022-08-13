@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.data.model.CocktailsResponse
+import com.kev.cocktailsdb.data.model.Drink
 import com.kev.cocktailsdb.data.repository.CocktailsRepository
 import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
@@ -29,9 +30,9 @@ class CocktailsViewModel constructor(
         get() = _downloadedAlcoholResponse
 
 
-    private val _NDownloadedAlcoholResponse = MutableLiveData<Resource<CocktailsResponse>>()
+    private val _nDownloadedAlcoholResponse = MutableLiveData<Resource<CocktailsResponse>>()
     val nDownloadedAlcoholResponse: LiveData<Resource<CocktailsResponse>>
-        get() = _NDownloadedAlcoholResponse
+        get() = _nDownloadedAlcoholResponse
 
 
     private suspend fun safeAlcoholCall() = viewModelScope.launch {
@@ -60,23 +61,23 @@ class CocktailsViewModel constructor(
     }
 
     private suspend fun safeNonAlcoholicCall() = viewModelScope.launch {
-        _NDownloadedAlcoholResponse.postValue(Resource.Loading())
+        _nDownloadedAlcoholResponse.postValue(Resource.Loading())
 
         try {
             if (hasInternet()) {
                 val response = repository.getNAlcoholCocktails()
                 response.body()?.let {
-                    _NDownloadedAlcoholResponse.postValue(Resource.Success(it))
+                    _nDownloadedAlcoholResponse.postValue(Resource.Success(it))
                 }
 
             } else {
-                _NDownloadedAlcoholResponse.postValue(Resource.Error("No internet connection."))
+                _nDownloadedAlcoholResponse.postValue(Resource.Error("No internet connection."))
             }
 
         } catch (t: Throwable) {
             when (t) {
-                is IOException -> _NDownloadedAlcoholResponse.postValue(Resource.Error("No internet connection."))
-                else -> _NDownloadedAlcoholResponse.postValue(Resource.Error("Conversion Error."))
+                is IOException -> _nDownloadedAlcoholResponse.postValue(Resource.Error("No internet connection."))
+                else -> _nDownloadedAlcoholResponse.postValue(Resource.Error("Conversion Error."))
             }
         }
     }
@@ -88,6 +89,9 @@ class CocktailsViewModel constructor(
     private fun getNAlcoholicCocktails() = viewModelScope.launch {
         safeNonAlcoholicCall()
     }
+
+
+
 
     init {
         getAlcoholicCocktails()

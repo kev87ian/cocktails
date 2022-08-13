@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.R
+import com.kev.cocktailsdb.data.db.AppDatabase
 import com.kev.cocktailsdb.data.model.Drink
 import com.kev.cocktailsdb.data.repository.CocktailDetailsRepository
 import com.kev.cocktailsdb.util.Resource
@@ -22,14 +23,15 @@ import kotlinx.android.synthetic.main.activity_random_cocktail.*
 class CocktailDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: CocktailDetailsViewModel
     private lateinit var repository: CocktailDetailsRepository
-
+    private lateinit var appDb :AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_random_cocktail)
-
+        appDb = AppDatabase.invoke(baseContext)
+        repository = CocktailDetailsRepository(appDb)
         val cocktailId: Int = intent.getIntExtra("id", 1)
-        repository = CocktailDetailsRepository()
         viewModel = getViewModel(cocktailId)
+
 
 
         viewModel.downloadedCocktailDetails.observe(this, Observer { response ->
@@ -41,6 +43,7 @@ class CocktailDetailsActivity : AppCompatActivity() {
                         it
                         val drink = it.drinks[0]
                         setCocktail(drink)
+                        saveToDatabase(drink)
                     }
 
                 }
@@ -57,6 +60,7 @@ class CocktailDetailsActivity : AppCompatActivity() {
 
             }
         })
+
 
     }
 
@@ -186,6 +190,12 @@ class CocktailDetailsActivity : AppCompatActivity() {
 
     }
 
+    private fun saveToDatabase(drink: Drink){
+        addToFavorites.setOnClickListener {
+            viewModel.saveCocktail(drink)
+            Toast.makeText(baseContext, "Cocktail favorited", Toast.LENGTH_LONG).show()
+        }
+    }
 
 }
 

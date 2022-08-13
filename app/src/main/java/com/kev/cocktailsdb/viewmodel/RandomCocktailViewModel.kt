@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.data.model.CocktailsResponse
+import com.kev.cocktailsdb.data.model.Drink
 import com.kev.cocktailsdb.data.repository.RandomCocktailRepository
 import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
@@ -51,6 +52,10 @@ class RandomCocktailViewModel(
 
     private fun getRandomCocktail() = viewModelScope.launch {
         safeRandomCocktailCall()
+    }
+
+    fun saveCocktail(drink: Drink) = viewModelScope.launch {
+        repository.upsert(drink)
     }
 
     init {

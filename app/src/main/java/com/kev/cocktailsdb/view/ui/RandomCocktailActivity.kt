@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.R
+import com.kev.cocktailsdb.data.db.AppDatabase
 import com.kev.cocktailsdb.data.model.Drink
 import com.kev.cocktailsdb.data.repository.RandomCocktailRepository
 import com.kev.cocktailsdb.util.Resource
@@ -25,16 +26,12 @@ class RandomCocktailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_random_cocktail)
 
 
-
-
-
-
-        repository = RandomCocktailRepository()
+        val db = AppDatabase.invoke(baseContext)
+        repository = RandomCocktailRepository(db)
 
         val viewModelProviderFactory =
             RandomCocktailViewModelProviderFactory(application as HiltApplication, repository)
-        viewModel =
-            ViewModelProvider(this, viewModelProviderFactory)[RandomCocktailViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelProviderFactory)[RandomCocktailViewModel::class.java]
 
         viewModel.randomCocktail.observe(this) { response ->
 
@@ -53,6 +50,7 @@ class RandomCocktailActivity : AppCompatActivity() {
 
                         val drink = it.drinks[0]
                         setUI(drink)
+                        addTofavorites(drink)
                     }
 
                 }
@@ -61,6 +59,14 @@ class RandomCocktailActivity : AppCompatActivity() {
                     randomCocktailsProgressBar.visibility = View.VISIBLE
                 }
             }
+        }
+    }
+
+    private fun addTofavorites(drink: Drink) {
+
+        addToFavorites.setOnClickListener{
+            viewModel.saveCocktail(drink)
+            Toast.makeText(baseContext, "Succesfully saved", Toast.LENGTH_LONG).show()
         }
     }
 

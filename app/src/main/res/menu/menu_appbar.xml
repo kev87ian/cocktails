@@ -12,4 +12,10 @@
         android:id="@+id/menuRandomCocktail"
         android:title="Display Random Cocktail"
         app:showAsAction="never"/>
+
+
+    <item
+        android:id="@+id/favoriteCocktails"
+        android:title="Show Favorited Cocktails"
+        app:showAsAction="never"/>
 </menu>

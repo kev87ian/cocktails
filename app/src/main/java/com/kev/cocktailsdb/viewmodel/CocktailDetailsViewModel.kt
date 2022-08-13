@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.data.model.CocktailsResponse
+import com.kev.cocktailsdb.data.model.Drink
 import com.kev.cocktailsdb.data.repository.CocktailDetailsRepository
 import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
@@ -25,7 +26,7 @@ class CocktailDetailsViewModel(app: HiltApplication, cocktailId: Int, private va
      get() = _downloadedCocktailDetails
 
 
-
+    /*This function makes the API call with the network state in mind*/
     private suspend fun safeDetailsCall(cocktailId: Int) = viewModelScope.launch {
         _downloadedCocktailDetails.postValue(Resource.Loading())
         try {
@@ -53,6 +54,14 @@ class CocktailDetailsViewModel(app: HiltApplication, cocktailId: Int, private va
 
     }
 
+
+ /*   Database-related functions*/
+    fun saveCocktail(drink: Drink) = viewModelScope.launch {
+        repository.upsert(drink)
+    }
+
+
+/*   Database-related functions*/
 
     init {
         getCocktailDetails(cocktailId)

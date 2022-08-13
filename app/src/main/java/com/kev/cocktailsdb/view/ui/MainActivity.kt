@@ -64,10 +64,19 @@ class MainActivity : AppCompatActivity() {
             R.id.menuSearchQuery ->{
                 searchCocktail()
             }
+            R.id.favoriteCocktails ->{
+                showFavoriteCocktails()
+            }
         }
         return true
     }
-   private fun searchCocktail() {
+
+    private fun showFavoriteCocktails() {
+        val intent=Intent(baseContext, FavoritedCocktailsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun searchCocktail() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("Cocktail Search.")
         //set up the input dialog

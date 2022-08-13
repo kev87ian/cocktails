@@ -1,4 +1,3 @@
-
 package com.kev.cocktailsdb.data.db
 
 import android.content.Context
@@ -9,26 +8,28 @@ import com.kev.cocktailsdb.data.model.Drink
 
 @Database(entities = [Drink::class], version = 1, exportSchema = false)
 
-abstract class AppDatabase  : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun getAppDao(): AppDao
+    //function that returns cocktail dao
+    abstract fun getDrinksDao(): AppDao
 
     companion object {
-        private var DB_INSTANCE: AppDatabase? = null
+        @Volatile
+        private var instance: AppDatabase? = null
 
-        fun getDbInstance(context: Context): AppDatabase {
-            if (DB_INSTANCE == null) {
-                DB_INSTANCE = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "APP_DB"
-                )
-                    .allowMainThreadQueries()
-                    .build()
-            }
+        private val LOCK = Any()
 
-            return DB_INSTANCE!!
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+/*This means that this cant be accessed by other threads at the same time */
+            instance?: createDatabase(context).also{ instance = it}
+
         }
+
+        private fun createDatabase(context: Context) = Room.databaseBuilder(
+            context.applicationContext,
+            AppDatabase::class.java,
+            "cocktails_db.db"
+        ).build()
     }
 }
 

@@ -26,7 +26,6 @@ class CocktailSearchActivity : AppCompatActivity() {
         setUpRecyclerView()
 
         val cocktailName = intent.getStringExtra("userQuery").toString()
-        val drinkString = "Results for $cocktailName"
 
         repository = SearchCocktailsRepository()
         val viewModelProviderFactory = CocktailSearchViewModelProviderFactory(
