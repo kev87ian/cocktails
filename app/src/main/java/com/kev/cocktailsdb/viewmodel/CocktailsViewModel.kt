@@ -11,7 +11,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kev.cocktailsdb.HiltApplication
 import com.kev.cocktailsdb.data.model.CocktailsResponse
-import com.kev.cocktailsdb.data.model.Drink
 import com.kev.cocktailsdb.data.repository.CocktailsRepository
 import com.kev.cocktailsdb.util.Resource
 import kotlinx.coroutines.launch
