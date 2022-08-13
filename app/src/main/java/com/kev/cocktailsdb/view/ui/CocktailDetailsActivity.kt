@@ -30,7 +30,9 @@ class CocktailDetailsActivity : AppCompatActivity() {
         appDb = AppDatabase.invoke(baseContext)
         repository = CocktailDetailsRepository(appDb)
         val cocktailId: Int = intent.getIntExtra("id", 1)
+        val cocktailName = intent.getStringExtra("name")
         viewModel = getViewModel(cocktailId)
+        toolbar.title = cocktailName
 
 
 
@@ -38,7 +40,7 @@ class CocktailDetailsActivity : AppCompatActivity() {
 
             when (response) {
                 is Resource.Success -> {
-                    randomCocktailsProgressBar.visibility = View.GONE
+                    showViews()
                     response.data?.let {
                         it
                         val drink = it.drinks[0]
@@ -49,13 +51,14 @@ class CocktailDetailsActivity : AppCompatActivity() {
                 }
                 is Resource.Loading -> {
                     randomCocktailsProgressBar.visibility = View.VISIBLE
-
+                    hideViews()
                 }
 
                 is Resource.Error -> {
-                    errorRandomCocktail.visibility = View.VISIBLE
-                    errorRandomCocktail.text = response.message.toString()
-                    randomCocktailsProgressBar.visibility = View.GONE
+
+
+                    onError()
+                    errorRandomCocktail.text = response.message
                 }
 
             }
@@ -70,7 +73,6 @@ class CocktailDetailsActivity : AppCompatActivity() {
         Glide.with(baseContext).load(drink.strDrinkThumb).placeholder(R.drawable.loading)
             .into(randomCocktailImageView)
         cocktailName.text = drink.strDrink
-        Toast.makeText(this, drink.strDrink, Toast.LENGTH_LONG).show()
 
         randomCocktailDetailsCategoryTV.text = drink.strAlcoholic
         randomCocktailGlassTv.text = drink.strGlass
@@ -195,6 +197,46 @@ class CocktailDetailsActivity : AppCompatActivity() {
             viewModel.saveCocktail(drink)
             Toast.makeText(baseContext, "Cocktail favorited", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun hideViews(){
+        /*Loading*/
+        randomCocktailImageView.visibility = View.GONE
+        randomCocktailsProgressBar.visibility = View.VISIBLE
+        randomCocktailInstructionsTv.visibility = View.GONE
+        cardView8.visibility = View.GONE
+        drinkDetailIngredient1Tv.visibility = View.GONE
+        drinkDetailMeasurement1Tv.visibility = View.GONE
+        addToFavorites.visibility = View.GONE
+        cardview1.visibility = View.GONE
+        tableeee.visibility = View.GONE
+        tableMeasarement.visibility = View.GONE
+        instrudctionsHeader.visibility = View.GONE
+    }
+
+    private fun showViews(){
+/*success*/
+        randomCocktailImageView.visibility = View.VISIBLE
+        randomCocktailDetailsCategoryTV.visibility = View.VISIBLE
+        randomCocktailInstructionsTv.visibility = View.VISIBLE
+        randomCocktailGlassTv.visibility = View.VISIBLE
+        drinkDetailIngredient1Tv.visibility = View.VISIBLE
+        drinkDetailMeasurement1Tv.visibility = View.VISIBLE
+        addToFavorites.visibility = View.VISIBLE
+        cardview1.visibility = View.VISIBLE
+        cardView8.visibility = View.VISIBLE
+        randomCocktailsProgressBar.visibility = View.GONE
+        tableMeasarement.visibility = View.VISIBLE
+        tableeee.visibility = View.VISIBLE
+        randomCocktailsProgressBar.visibility = View.GONE
+        instrudctionsHeader.visibility = View.VISIBLE
+        toolbar.visibility = View.VISIBLE
+    }
+
+    private fun onError(){
+        hideViews()
+        randomCocktailsProgressBar.visibility = View.GONE
+        errorRandomCocktail.visibility = View.VISIBLE
     }
 
 }

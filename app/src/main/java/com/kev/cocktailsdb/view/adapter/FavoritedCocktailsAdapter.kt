@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.cocktail_layout_file.view.*
 class FavoritedCocktailsAdapter : RecyclerView.Adapter<FavoritedCocktailsAdapter.FavoritesViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.cocktail_layout_file, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.favorites_item_layout, parent, false)
         return FavoritesViewHolder(view)
     }
 

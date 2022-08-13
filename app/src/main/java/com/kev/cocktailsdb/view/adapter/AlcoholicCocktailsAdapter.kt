@@ -49,6 +49,7 @@ class AlcoholicCocktailsAdapter() :
       holder.itemView.setOnClickListener{
         val intent = Intent(holder.itemView.context, CocktailDetailsActivity::class.java)
           intent.putExtra("id", currentCocktail.idDrink)
+          intent.putExtra("name", currentCocktail.strDrink)
           holder.itemView.context.startActivity(intent)
       }
     }

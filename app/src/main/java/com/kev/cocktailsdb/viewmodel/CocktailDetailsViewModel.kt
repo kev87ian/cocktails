@@ -36,13 +36,13 @@ class CocktailDetailsViewModel(app: HiltApplication, cocktailId: Int, private va
                     _downloadedCocktailDetails.postValue(Resource.Success(it))
                 }
             } else {
-                    _downloadedCocktailDetails.postValue(Resource.Error("No internet Connection."))
+                    _downloadedCocktailDetails.postValue(Resource.Error("No Internet Connection."))
             }
         } catch (e: Exception) {
             Log.d("Retrofit", e.message.toString())
             when (e) {
-                is IOException -> _downloadedCocktailDetails.postValue(Resource.Error("Network Failure"))
-                else ->          _downloadedCocktailDetails.postValue(Resource.Error("Json Conversion Error"))
+                is IOException -> _downloadedCocktailDetails.postValue(Resource.Error("No Internet Connection."))
+                else ->          _downloadedCocktailDetails.postValue(Resource.Error("Json Conversion Error."))
             }
         }
     }

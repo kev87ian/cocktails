@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         builder.show()
     }
 
-    private fun randomCocktail(){
+    private     fun randomCocktail(){
         intent = Intent(this, RandomCocktailActivity::class.java)
         startActivity(intent)
     }

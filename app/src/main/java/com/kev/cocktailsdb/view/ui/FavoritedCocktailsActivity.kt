@@ -56,7 +56,6 @@ class FavoritedCocktailsActivity : AppCompatActivity() {
                 val position = viewHolder.adapterPosition
                 val drink  = myAdapter.differ.currentList[position]
                 viewModel.deleteCocktail(drink)
-
                 Toast.makeText(baseContext, "Cocktail removed succesfully.", Toast.LENGTH_SHORT).show()
                 }
 

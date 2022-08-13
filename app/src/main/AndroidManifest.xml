@@ -18,15 +18,18 @@
         android:theme="@style/Theme.CocktailsDB"
         tools:targetApi="31">
         <activity
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
             android:name=".view.ui.FavoritedCocktailsActivity"
             android:exported="false" />
         <activity
             android:name=".view.ui.CocktailSearchActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
             android:name=".view.ui.RandomCocktailActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:name=".view.ui.CocktailDetailsActivity"
             android:exported="false" />
         <activity
