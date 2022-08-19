@@ -2,7 +2,6 @@ package com.kev.cocktailsdb.view.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,7 +17,7 @@ class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cockta
     private lateinit var viewModel: CocktailsViewModel
     private lateinit var cocktailsAdapter: AlcoholicCocktailsAdapter
 
-    val TAG = "NonAlcoholicCocktailsFragment"
+
 
     @SuppressLint("LongLogTag")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,34 +25,49 @@ class NAlcoholicCocktailsFragment : Fragment(R.layout.fragment_nalcoholic_cockta
 
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
+        setupObserver()
+        retryNetworkCall()
+    }
 
+    private fun retryNetworkCall() {
+        btnRetry.setOnClickListener {
+            viewModel.getNAlcoholicCocktails()
+            setupObserver()
+        }
+    }
 
-
-
+    override fun onResume() {
+        super.onResume()
+        setupObserver()
+        retryNetworkCall()
+    }
+    private fun setupObserver() {
         viewModel.nDownloadedAlcoholResponse.observe(viewLifecycleOwner, Observer {response->
-
             when(response){
                 is Resource.Loading ->{
                     progressBarN.visibility = View.VISIBLE
-
+                    errorTvN.visibility = View.GONE
+                    btnRetry.visibility =View.GONE
                 }
 
                 is Resource.Error ->{
                     progressBarN.visibility = View.GONE
                     errorTvN.text = response.message
-                   errorTvN.visibility = View.VISIBLE
-                    Log.d(TAG, response.message.toString())
+                    errorTvN.visibility = View.VISIBLE
+                    btnRetry.visibility = View.VISIBLE
+
                 }
 
                 is Resource.Success ->{
                     progressBarN.visibility = View.GONE
+                    errorTvN.visibility = View.GONE
+                    btnRetry.visibility = View.GONE
                     cocktailsAdapter.differ.submitList(response.data?.drinks)
                 }
             }
 
 
         })
-
     }
 
     private fun setupRecyclerView() {

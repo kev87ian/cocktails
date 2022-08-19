@@ -81,11 +81,11 @@ class CocktailsViewModel constructor(
         }
     }
 
-    private fun getAlcoholicCocktails() = viewModelScope.launch {
+     fun getAlcoholicCocktails() = viewModelScope.launch {
         safeAlcoholCall()
     }
 
-    private fun getNAlcoholicCocktails() = viewModelScope.launch {
+     fun getNAlcoholicCocktails() = viewModelScope.launch {
         safeNonAlcoholicCall()
     }
 
