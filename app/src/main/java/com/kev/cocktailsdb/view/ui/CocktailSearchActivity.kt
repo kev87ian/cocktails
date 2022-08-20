@@ -36,7 +36,7 @@ class CocktailSearchActivity : AppCompatActivity() {
         viewModel =
             ViewModelProvider(this, viewModelProviderFactory)[CocktailSearchViewModel::class.java]
 
-        viewModel.searchCocktailsResponse.observe(this) { response ->
+        viewModel.cocktailSearchResponse.observe(this) { response ->
 
             when (response) {
                 is Resource.Success -> {
@@ -47,6 +47,7 @@ class CocktailSearchActivity : AppCompatActivity() {
 
                     } else {
                         errorTv.visibility = View.VISIBLE
+                        noResultsImage.visibility = View.VISIBLE
 
                     }
 
@@ -60,6 +61,7 @@ class CocktailSearchActivity : AppCompatActivity() {
                     errorTv.visibility = View.VISIBLE
                     errorTv.text = response.message
                     Toast.makeText(baseContext, response.message, Toast.LENGTH_SHORT).show()
+                    noResultsImage.visibility = View.VISIBLE
                 }
 
             }
