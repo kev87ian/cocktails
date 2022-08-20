@@ -41,7 +41,15 @@ class CocktailSearchActivity : AppCompatActivity() {
             when (response) {
                 is Resource.Success -> {
                     progressBar.visibility = View.GONE
-                    myAdapter.differ.submitList(response.data?.drinks)
+
+                    if (!response.data?.drinks.isNullOrEmpty()) {
+                        myAdapter.differ.submitList(response.data?.drinks)
+
+                    } else {
+                        errorTv.visibility = View.VISIBLE
+
+                    }
+
                 }
                 is Resource.Loading -> {
                     progressBar.visibility = View.VISIBLE

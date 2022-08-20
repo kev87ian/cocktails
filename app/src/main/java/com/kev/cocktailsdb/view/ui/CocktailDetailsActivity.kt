@@ -30,19 +30,18 @@ class CocktailDetailsActivity : AppCompatActivity() {
         appDb = AppDatabase.invoke(baseContext)
         repository = CocktailDetailsRepository(appDb)
         val cocktailId: Int = intent.getIntExtra("id", 1)
-        val cocktailName = intent.getStringExtra("name")
         viewModel = getViewModel(cocktailId)
 
+        setupObserver()
+    }
 
-
-
+    private fun setupObserver() {
         viewModel.downloadedCocktailDetails.observe(this, Observer { response ->
 
             when (response) {
                 is Resource.Success -> {
                     showViews()
-                    response.data?.let {
-                        it
+                    response.data?.let {it->
                         val drink = it.drinks[0]
                         setCocktail(drink)
                         saveToDatabase(drink)
