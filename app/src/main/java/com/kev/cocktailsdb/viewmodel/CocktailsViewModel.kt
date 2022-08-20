@@ -90,8 +90,6 @@ class CocktailsViewModel constructor(
     }
 
 
-
-
     init {
         getAlcoholicCocktails()
         getNAlcoholicCocktails()

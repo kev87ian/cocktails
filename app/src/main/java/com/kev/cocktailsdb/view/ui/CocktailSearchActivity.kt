@@ -2,7 +2,6 @@ package com.kev.cocktailsdb.view.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,16 +40,9 @@ class CocktailSearchActivity : AppCompatActivity() {
             when (response) {
                 is Resource.Success -> {
                     progressBar.visibility = View.GONE
-
-                    if (!response.data?.drinks.isNullOrEmpty()) {
-                        myAdapter.differ.submitList(response.data?.drinks)
-
-                    } else {
-                        errorTv.visibility = View.VISIBLE
-                        noResultsImage.visibility = View.VISIBLE
-
+                    response.data?.drinks.let {
+                        myAdapter.differ.submitList(it)
                     }
-
                 }
                 is Resource.Loading -> {
                     progressBar.visibility = View.VISIBLE
@@ -60,7 +52,7 @@ class CocktailSearchActivity : AppCompatActivity() {
                     progressBar.visibility = View.GONE
                     errorTv.visibility = View.VISIBLE
                     errorTv.text = response.message
-                    Toast.makeText(baseContext, response.message, Toast.LENGTH_SHORT).show()
+
                     noResultsImage.visibility = View.VISIBLE
                 }
 
