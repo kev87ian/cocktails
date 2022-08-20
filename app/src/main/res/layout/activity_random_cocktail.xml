@@ -21,7 +21,6 @@
                 android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <ProgressBar
                 android:id="@+id/randomCocktailsProgressBar"
                 android:layout_width="wrap_content"

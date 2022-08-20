@@ -1,7 +1,7 @@
 package com.kev.cocktailsdb.view.ui
 
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,24 +20,32 @@ class FavoritedCocktailsActivity : AppCompatActivity() {
     lateinit var repository: FavoritedCocktailsRepository
     lateinit var viewModel: FavoritedCocktailsViewModel
     lateinit var myAdapter: FavoritedCocktailsAdapter
+    lateinit var recyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorited_cocktails)
 
         setUpRv()
+        setupObserver()
+        swipeToDelete()
 
-        val db = AppDatabase.invoke(baseContext)
-        repository = FavoritedCocktailsRepository(db)
+       /* emptyRecordsImage.visibility = View.VISIBLE
+        favoritesTvEmpty.visibility = View.VISIBLE*/
 
-        val viewModelProviderFactory =  FavoritesViewModelProviderFactory(repository)
-       viewModel = ViewModelProvider(this, viewModelProviderFactory)[FavoritedCocktailsViewModel::class.java]
+        if (recyclerView.adapter?.itemCount == 0){
+            emptyRecordsImage.visibility = View.VISIBLE
+            favoritesTvEmpty.visibility = View.VISIBLE
+        }
 
+        else{
+            emptyRecordsImage.visibility = View.GONE
+            favoritesTvEmpty.visibility = View.GONE
 
-        
-        viewModel.getSavedCocktails().observe(this, Observer {
-            myAdapter.differ.submitList(it)
-        })
+        }
 
+    }
+
+    private fun swipeToDelete() {
         /*Swipe to delete*/
         val itemTouchCallBack = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
@@ -54,24 +62,49 @@ class FavoritedCocktailsActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 val position = viewHolder.adapterPosition
-                val drink  = myAdapter.differ.currentList[position]
+                val drink = myAdapter.differ.currentList[position]
                 viewModel.deleteCocktail(drink)
-                Toast.makeText(baseContext, "Cocktail removed succesfully.", Toast.LENGTH_SHORT).show()
+                val count = myAdapter.itemCount
+                val finalCount = count - 1
+                if (finalCount == 0) {
+                    emptyRecordsImage.visibility = View.VISIBLE
+                    favoritesTvEmpty.visibility = View.VISIBLE
+                }
+
+                if (finalCount != 0) {
+                    emptyRecordsImage.visibility = View.GONE
+                    favoritesTvEmpty.visibility = View.GONE
                 }
 
             }
+
+        }
         ItemTouchHelper(itemTouchCallBack).apply {
             attachToRecyclerView(favoritesRecyclerView)
         }
-        }
+    }
 
+    private fun setupObserver() {
+        viewModel.getSavedCocktails().observe(this, Observer {
+            myAdapter.differ.submitList(it)
+
+        })
+
+    }
 
 
     private fun setUpRv() {
+        val db = AppDatabase.invoke(baseContext)
+        repository = FavoritedCocktailsRepository(db)
+        recyclerView = findViewById(R.id.favoritesRecyclerView)
+        val viewModelProviderFactory = FavoritesViewModelProviderFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory)[FavoritedCocktailsViewModel::class.java]
+
         myAdapter = FavoritedCocktailsAdapter()
-        favoritesRecyclerView.apply {
+        recyclerView.apply {
             adapter = myAdapter
             layoutManager = LinearLayoutManager(baseContext)
         }
     }
+
 }
