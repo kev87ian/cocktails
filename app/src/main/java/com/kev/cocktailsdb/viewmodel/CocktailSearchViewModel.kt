@@ -1,9 +1,5 @@
 package com.kev.cocktailsdb.viewmodel
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -24,32 +20,27 @@ class CocktailSearchViewModel(
 
 
     private suspend fun safeSearchQuery(cocktailName: String) = viewModelScope.launch {
-        cocktailSearchResponse.postValue(Resource.Loading())
-        val response = repository.searchCocktails(cocktailName)
-        try {
-            if (hasInternet()&&!response.body()?.drinks.isNullOrEmpty()){
-                response.body()?.let {
-                    cocktailSearchResponse.postValue(Resource.Success(it))
-                }
-            }
+       try {
+           val response = repository.searchCocktails(cocktailName)
+           if (response.isSuccessful&&!response.body()?.drinks.isNullOrEmpty()){
+               response.body()?.let {cocktailResponse->
+                   cocktailSearchResponse.postValue(Resource.Success(cocktailResponse))
+               }
+           }
 
-            else if(hasInternet() && response.body()?.drinks.isNullOrEmpty()){
-                cocktailSearchResponse.postValue(Resource.Error("No cocktails found."))
-            }
-            else{
-                cocktailSearchResponse.postValue(Resource.Error("Ensure you have an active internet connection."))
-            }
+           else if (response.isSuccessful && response.body()?.drinks.isNullOrEmpty()){
+               cocktailSearchResponse.postValue(Resource.Error("No cocktail(s) found."))
+           }
 
-        } catch (e: Exception) {
-            when(e){
-                is IOException -> cocktailSearchResponse.postValue(Resource.Error("Ensure you have an active internet connection."))
-            }
-
+       } catch (e:Exception){
+        when(e){
+            is IOException -> cocktailSearchResponse.postValue(Resource.Error("Ensure you have an active internet connection"))
         }
+       }
     }
 
 
-    private  fun searchCocktails(cocktailName: String) = viewModelScope.launch {
+     fun searchCocktails(cocktailName: String) = viewModelScope.launch {
         safeSearchQuery(cocktailName)
     }
 
@@ -58,7 +49,7 @@ class CocktailSearchViewModel(
         searchCocktails(cocktailName)
     }
 
-    private fun hasInternet(): Boolean {
+/*    private fun hasInternet(): Boolean {
         val connectivityManager = getApplication<HiltApplication>().getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
@@ -89,5 +80,32 @@ class CocktailSearchViewModel(
         }
 
         return false
-    }
+    }*/
 }
+
+
+  
+/*cocktailSearchResponse.postValue(Resource.Loading())
+        val response = repository.searchCocktails(cocktailName)
+        try {
+            if (hasInternet()&&!response.body()?.drinks.isNullOrEmpty()){
+                response.body()?.let {
+                    cocktailSearchResponse.postValue(Resource.Success(it))
+                }
+            }
+
+            else if(hasInternet() && response.body()?.drinks.isNullOrEmpty()){
+                cocktailSearchResponse.postValue(Resource.Error("No cocktails found."))
+            }
+            else{
+                cocktailSearchResponse.postValue(Resource.Error("Ensure you have an active internet connection."))
+            }
+
+        } catch (e: Exception) {
+            when(e){
+                is IOException -> cocktailSearchResponse.postValue(Resource.Error("Ensure you have an active internet connection."))
+            }
+
+        }
+
+*/

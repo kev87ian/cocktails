@@ -1,4 +1,4 @@
-package com.kev.cocktailsdb.view.ui
+package com.kev.cocktailsdb.view.ui.activities
 
 
 import android.os.Bundle

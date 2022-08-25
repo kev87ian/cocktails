@@ -1,4 +1,4 @@
-package com.kev.cocktailsdb.view.ui
+package com.kev.cocktailsdb.view.ui.activities
 
 import android.os.Bundle
 import android.view.View
@@ -32,18 +32,22 @@ class FavoritedCocktailsActivity : AppCompatActivity() {
        /* emptyRecordsImage.visibility = View.VISIBLE
         favoritesTvEmpty.visibility = View.VISIBLE*/
 
-        if (recyclerView.adapter?.itemCount == 0){
+
+        if (myAdapter.differ.currentList.isEmpty()){
             emptyRecordsImage.visibility = View.VISIBLE
             favoritesTvEmpty.visibility = View.VISIBLE
         }
 
-        else{
+        else if(myAdapter.differ.currentList.isNotEmpty()) {
+
             emptyRecordsImage.visibility = View.GONE
             favoritesTvEmpty.visibility = View.GONE
-
         }
 
+
     }
+
+
 
     private fun swipeToDelete() {
         /*Swipe to delete*/

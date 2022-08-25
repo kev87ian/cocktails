@@ -19,23 +19,23 @@
         android:theme="@style/Theme.CocktailsDB"
         tools:targetApi="31">
         <activity
-            android:name=".view.ui.FavoritedCocktailsActivity"
+            android:name=".view.ui.activities.FavoritedCocktailsActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar" />
         <activity
-            android:name=".view.ui.CocktailSearchActivity"
+            android:name=".view.ui.activities.CocktailSearchActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" />
         <activity
-            android:name=".view.ui.RandomCocktailActivity"
+            android:name=".view.ui.activities.RandomCocktailActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" />
         <activity
-            android:name=".view.ui.CocktailDetailsActivity"
+            android:name=".view.ui.activities.CocktailDetailsActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" />
         <activity
-            android:name=".view.ui.MainActivity"
+            android:name=".view.ui.activities.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>

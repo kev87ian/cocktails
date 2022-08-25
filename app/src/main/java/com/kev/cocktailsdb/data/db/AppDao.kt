@@ -9,7 +9,7 @@ interface AppDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertRecords(drink: Drink):Long
 
-    /* The function below is not a suspend becuase it returns livedate*/
+    /* The function below is not a suspend because it returns livedata*/
     @Query("SELECT * FROM drinks")
     fun getAllCocktails(): LiveData<List<Drink>>
 

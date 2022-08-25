@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kev.cocktailsdb.R
 import com.kev.cocktailsdb.data.model.Drink
-import com.kev.cocktailsdb.view.ui.CocktailDetailsActivity
+import com.kev.cocktailsdb.view.ui.activities.CocktailDetailsActivity
 import kotlinx.android.synthetic.main.cocktail_layout_file.view.*
 
 class CocktailSearchAdapter : RecyclerView.Adapter<CocktailSearchAdapter.CocktailsViewHolder>() {

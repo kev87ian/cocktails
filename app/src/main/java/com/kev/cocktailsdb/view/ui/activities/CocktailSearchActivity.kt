@@ -1,4 +1,4 @@
-package com.kev.cocktailsdb.view.ui
+package com.kev.cocktailsdb.view.ui.activities
 
 import android.os.Bundle
 import android.view.View
@@ -24,16 +24,11 @@ class CocktailSearchActivity : AppCompatActivity() {
 
         setUpRecyclerView()
 
-        val cocktailName = intent.getStringExtra("userQuery").toString()
+        val cocktailName = intent.getStringExtra("userQuery").toString().trim()
 
         repository = SearchCocktailsRepository()
-        val viewModelProviderFactory = CocktailSearchViewModelProviderFactory(
-            repository,
-            cocktailName,
-            application as HiltApplication
-        )
-        viewModel =
-            ViewModelProvider(this, viewModelProviderFactory)[CocktailSearchViewModel::class.java]
+        val viewModelProviderFactory = CocktailSearchViewModelProviderFactory(repository, cocktailName, application as HiltApplication)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory)[CocktailSearchViewModel::class.java]
 
         viewModel.cocktailSearchResponse.observe(this) { response ->
 

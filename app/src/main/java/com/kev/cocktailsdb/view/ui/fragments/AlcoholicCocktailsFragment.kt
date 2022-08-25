@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.kev.cocktailsdb.R
 import com.kev.cocktailsdb.util.Resource
 import com.kev.cocktailsdb.view.adapter.AlcoholicCocktailsAdapter
-import com.kev.cocktailsdb.view.ui.MainActivity
+import com.kev.cocktailsdb.view.ui.activities.MainActivity
 import com.kev.cocktailsdb.viewmodel.CocktailsViewModel
 import kotlinx.android.synthetic.main.fragment_alcoholic_cocktails.*
 
