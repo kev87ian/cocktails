@@ -62,9 +62,6 @@ dependencies {
     def coroutinesVersion = '1.4.3'
     def retrofitVersion = "2.9.0"
     def lifeCycleVersion = '2.2.0'
-    def daggerHiltVersion = '2.31.2-alpha'
-    def hiltLifeCycleVersion = '1.0.0-alpha03'
-    def coilVersion = '1.2.2'
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"

@@ -47,7 +47,6 @@ class CocktailSearchActivity : AppCompatActivity() {
                     progressBar.visibility = View.GONE
                     errorTv.visibility = View.VISIBLE
                     errorTv.text = response.message
-
                     noResultsImage.visibility = View.VISIBLE
                 }
 

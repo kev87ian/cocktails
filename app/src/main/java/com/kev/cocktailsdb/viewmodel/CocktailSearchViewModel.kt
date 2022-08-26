@@ -15,11 +15,11 @@ class CocktailSearchViewModel(
     private val repository: SearchCocktailsRepository
 ) : AndroidViewModel(application) {
 
-    val cocktailSearchResponse: MutableLiveData<Resource<CocktailsResponse>> =
-        MutableLiveData()
+    val cocktailSearchResponse: MutableLiveData<Resource<CocktailsResponse>> = MutableLiveData()
 
 
     private suspend fun safeSearchQuery(cocktailName: String) = viewModelScope.launch {
+        cocktailSearchResponse.postValue(Resource.Loading())
        try {
            val response = repository.searchCocktails(cocktailName)
            if (response.isSuccessful&&!response.body()?.drinks.isNullOrEmpty()){
@@ -40,7 +40,7 @@ class CocktailSearchViewModel(
     }
 
 
-     fun searchCocktails(cocktailName: String) = viewModelScope.launch {
+     private fun searchCocktails(cocktailName: String) = viewModelScope.launch {
         safeSearchQuery(cocktailName)
     }
 
