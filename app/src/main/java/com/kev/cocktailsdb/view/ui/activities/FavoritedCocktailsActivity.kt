@@ -24,7 +24,10 @@ class FavoritedCocktailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorited_cocktails)
-
+        setSupportActionBar(findViewById(R.id.my_toolbar_favorites))
+            supportActionBar.apply {
+                title = "Favorite Cocktails"
+            }
         setUpRv()
         setupObserver()
         swipeToDelete()

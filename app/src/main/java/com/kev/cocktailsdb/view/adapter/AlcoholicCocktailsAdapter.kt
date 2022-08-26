@@ -27,8 +27,6 @@ class AlcoholicCocktailsAdapter() :
         }
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailsViewHolder {
 
         val view: View = LayoutInflater.from(parent.context)

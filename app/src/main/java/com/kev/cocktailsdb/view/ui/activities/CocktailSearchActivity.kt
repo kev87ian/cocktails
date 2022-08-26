@@ -21,10 +21,15 @@ class CocktailSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_cocktail)
+        val cocktailName = intent.getStringExtra("userQuery").toString().trim()
 
+        setSupportActionBar(findViewById(R.id.my_toolbar_search))
+        supportActionBar.apply {
+            title = "Results for '$cocktailName'"
+        }
         setUpRecyclerView()
 
-        val cocktailName = intent.getStringExtra("userQuery").toString().trim()
+
 
         repository = SearchCocktailsRepository()
         val viewModelProviderFactory = CocktailSearchViewModelProviderFactory(repository, cocktailName, application as HiltApplication)

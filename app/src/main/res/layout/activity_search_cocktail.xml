@@ -7,6 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.activities.CocktailSearchActivity">
 
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:layout_width="0dp"
+      android:id="@+id/app_toolbar"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@color/white"
+        android:theme="@style/Theme.MaterialComponents.DayNight"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+
   <ProgressBar
       android:id="@+id/progressBar"
       style="?attr/progressBarStyle"
@@ -18,52 +39,50 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
 
   <ImageView
+      android:id="@+id/noResultsImage"
       android:layout_width="wrap_content"
       android:layout_height="200dp"
       android:src="@drawable/error"
-      android:id="@+id/noResultsImage"
       android:visibility="gone"
       app:layout_constraintBottom_toTopOf="@+id/errorTv"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/cocktailSearchRV"
-      app:layout_constraintVertical_bias="1" />
+      app:layout_constraintTop_toBottomOf="@+id/app_toolbar"
+      app:layout_constraintVertical_bias="1.0" />
 
   <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@+id/cocktailSearchRV"
       android:id="@+id/errorTv"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
-
-  <Button
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="RETRY"
+      android:text=""
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      android:id="@+id/searchActivtyRetryBtn"
-      android:visibility="gone"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/errorTv"
-      app:layout_constraintVertical_bias="0.0" />
+      app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RETRY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/searchActivtyRetryBtn"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errorTv"
+        app:layout_constraintVertical_bias="0.0" />
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/cocktailSearchRV"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
