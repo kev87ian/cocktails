@@ -29,11 +29,11 @@
         <activity
             android:name=".view.ui.activities.RandomCocktailActivity"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" />
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".view.ui.activities.CocktailDetailsActivity"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" />
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".view.ui.activities.MainActivity"
             android:exported="true"

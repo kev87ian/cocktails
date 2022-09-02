@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             //we getting user input
             val userQuery = userInput.text.toString().trim().lowercase()
             //checking if user input contains numbers
-            if (userQuery.isEmpty() || !userQuery.matches("^[a-zA-Z ]*\$".toRegex())) { Toast.makeText(this, "Please ensure you have entered a valid cocktail name.", Toast.LENGTH_SHORT).show()
+            if (userQuery.isEmpty() || !userQuery.matches("^[a-zA-Z1-9 ]*\$".toRegex())) { Toast.makeText(this, "Please ensure you have entered a valid cocktail name.", Toast.LENGTH_SHORT).show()
 
             } else {
                 val intent = Intent(this, CocktailSearchActivity::class.java)

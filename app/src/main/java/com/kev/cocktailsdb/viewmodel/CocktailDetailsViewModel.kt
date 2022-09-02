@@ -49,7 +49,7 @@ class CocktailDetailsViewModel(app: HiltApplication, cocktailId: Int, private va
 
 
 
-    private fun getCocktailDetails(cocktailId: Int) = viewModelScope.launch {
+     fun getCocktailDetails(cocktailId: Int) = viewModelScope.launch {
         safeDetailsCall(cocktailId)
 
     }

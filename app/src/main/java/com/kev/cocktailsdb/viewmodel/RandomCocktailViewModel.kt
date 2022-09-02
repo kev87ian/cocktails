@@ -50,7 +50,7 @@ class RandomCocktailViewModel(
 
     }
 
-    private fun getRandomCocktail() = viewModelScope.launch {
+     fun getRandomCocktail() = viewModelScope.launch {
         safeRandomCocktailCall()
     }
 
